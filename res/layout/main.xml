@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" android:gravity="center_vertical|center_horizontal">
+<ScrollView android:id="@+id/Scroll" android:layout_height="fill_parent" android:layout_width="fill_parent" android:layout_weight="1">
+<LinearLayout android:id="@+id/BodyLayout"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+<TextView android:id="@+id/DispText" android:text="おはようございます" android:minLines="10" android:textSize="8pt" android:layout_height="wrap_content" android:layout_width="fill_parent"></TextView>
+<TableLayout android:id="@+id/ButtonLayout"
+    android:layout_height="wrap_content" android:layout_width="fill_parent" android:orientation="horizontal">
+<TableRow>
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/Swap" android:text="テキストの切り替え" android:onClick="swapText" android:layout_gravity="center"></Button>
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/Alert" android:text="アラートを表示" android:onClick="showAlert" android:layout_gravity="center"></Button>
+</TableRow>
+<TableRow>
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/Map" android:text="Goolge Mapを表示" android:onClick="showMapView" android:layout_gravity="center"></Button>
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/WebView" android:text="WebViewを表示" android:onClick="showWebView" android:layout_gravity="center"></Button>
+</TableRow>
+</TableLayout>
+</LinearLayout>
+</ScrollView>
+</LinearLayout>
