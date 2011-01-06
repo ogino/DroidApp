@@ -20,7 +20,7 @@ public class Chrome extends Activity {
 	private void createWebView() {
 		this.webView = new WebView(this);
 		this.webView.setAlwaysDrawnWithCacheEnabled(false);
-		this.webView.loadUrl("http://blog.livedoor.jp/geek/");
+		this.webView.loadUrl(getIntent().getStringExtra("URL"));
 		this.webView.setWebViewClient(new WebViewClient() {});
 	}
 

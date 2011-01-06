@@ -1,6 +1,9 @@
 package jp.leafnet.droid;
 
+import java.util.ResourceBundle;
+
 import jp.leafnet.droid.map.GoogleMap;
+import jp.leafnet.droid.news.HeadLine;
 import jp.leafnet.droid.web.Chrome;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,17 +15,6 @@ import android.view.View;
 import android.widget.TextView;
 
 public class Droid extends Activity {
-
-	final private String EVENING_MESSAGE = "こんばんは。\n皆様お元気でしょうか？\n私は元気です！\n" +
-	"そろそろおねむの時間ですね。\nおやすみなさいませ、ご主人様\n" +
-	"EVENING EVENING EVENING EVENING EVENING EVENING EVENING EVENING EVENING EVENING EVENING EVENING " +
-	"EVENING EVENING EVENING EVENING EVENING EVENING EVENING EVENING EVENING EVENING EVENING EVENING " +
-	"EVENING EVENING EVENING EVENING EVENING EVENING EVENING EVENING EVENING EVENING EVENING EVENING";
-	final private String MORNING_MESSAGE = "おはようございます。\nご主人様\n今日も元気に参りましょう\n" +
-	"あらあらまだ眠いですか？\n皆様お待ちですよ。\n" +
-	"MORNING MORNING MORNING MORNING MORNING MORNING MORNING MORNING MORNING MORNING MORNING MORNING " +
-	"MORNING MORNING MORNING MORNING MORNING MORNING MORNING MORNING MORNING MORNING MORNING MORNING " +
-	"MORNING MORNING MORNING MORNING MORNING MORNING MORNING MORNING MORNING MORNING MORNING MORNING";
 	private Boolean daytime = false;
 
 	@Override
@@ -35,7 +27,7 @@ public class Droid extends Activity {
 	public void onStart() {
 		super.onStart();
 		TextView textView = (TextView)findViewById(R.id.DispText);
-		textView.setText(EVENING_MESSAGE);
+		textView.setText(this.createText());
 	}
 
 //	@Override
@@ -64,6 +56,7 @@ public class Droid extends Activity {
 
 	public void showWebView(View v) {
 		Intent intent = new Intent(this, Chrome.class);
+		intent.putExtra("URL", "http://blog.livedoor.jp/dqnplus/lite/");
 		this.startActivity(intent);
 	}
 
@@ -75,8 +68,24 @@ public class Droid extends Activity {
 	public void swapText(View v) {
 		TextView textView = (TextView)findViewById(R.id.DispText);
 		textView.clearComposingText();
-		if (this.daytime) textView.setText(EVENING_MESSAGE);
-		else textView.setText(MORNING_MESSAGE);
+		textView.setText(this.createText());
+	}
+
+	private String createText() {
+		String text = null;
+		ResourceBundle bundle = ResourceBundle.getBundle("droid");
+		if (this.daytime) text = bundle.getString("message.evening");
+		else text = bundle.getString("message.morning");
 		this.daytime = !this.daytime;
+		return text;
+	}
+
+	public void showNewsView(View v) {
+		Intent intent = new Intent(this, HeadLine.class);
+		this.startActivity(intent);
+	}
+
+	public void showAboutView(View v) {
+		
 	}
 }

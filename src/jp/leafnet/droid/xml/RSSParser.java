@@ -20,6 +20,11 @@ import org.xml.sax.SAXException;
 public class RSSParser {
 
 	private RSSHandler handler;
+
+	public RSSHandler getHandler() {
+		return this.handler;
+	}
+
 	public Channel createChannel(final String url) throws SAXException, IOException, ParserConfigurationException, FactoryConfigurationError {
 		SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
 		this.handler = new RSSHandler();

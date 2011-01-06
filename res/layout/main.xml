@@ -19,6 +19,10 @@
 <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/Map" android:text="Goolge Mapを表示" android:onClick="showMapView" android:layout_gravity="center"></Button>
 <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/WebView" android:text="WebViewを表示" android:onClick="showWebView" android:layout_gravity="center"></Button>
 </TableRow>
+<TableRow>
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/News" android:text="Newsを表示" android:layout_gravity="center" android:onClick="showNewsView"></Button>
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/About" android:text="about" android:layout_gravity="center" android:onClick="showAboutView"></Button>
+</TableRow>
 </TableLayout>
 </LinearLayout>
 </ScrollView>

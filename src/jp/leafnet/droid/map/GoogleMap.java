@@ -40,7 +40,7 @@ public class GoogleMap extends MapActivity implements LocationListener, GpsStatu
 	}
 
 	private String createAPIKey() {
-		ResourceBundle bundle = ResourceBundle.getBundle("jp.leafnet.droid.map.googlemap");
+		ResourceBundle bundle = ResourceBundle.getBundle("googlemap");
 		if (bundle.getString("apikey.mode").equals("debug"))
 			return bundle.getString("apikey.debug");
 		else

@@ -3,6 +3,7 @@ package jp.leafnet.droid.xml.handler;
 import java.util.HashMap;
 import java.util.Map;
 
+import jp.leafnet.droid.util.StringUtil;
 import jp.leafnet.droid.xml.rss.Channel;
 import jp.leafnet.droid.xml.rss.Item;
 
@@ -38,18 +39,19 @@ public class RSSHandler extends DefaultHandler {
 	}
 	
 	@Override
-	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-		if (qName.equals("channel")) {
+	public void startElement(String uri, String localName, String qName, Attributes attributes) {
+		if (localName.equals("channel") || qName.equals("channel")) {
 			this.beginParse = true;
 			this.channel = new Channel();
 			return;
-		} else if (qName.equals("item") && !this.inside) {
+		} else if ((localName.equals("item") || qName.equals("item")) && !this.inside) {
 			this.item = new Item();
 			this.inside = true;
 			return;
 		}
-		
-		if (this.beginParse) this.tag = qName;
+
+		String name = createName(localName, qName);
+		if (this.beginParse && !StringUtil.isEmpty(name)) this.tag = name;
 		else return;
 		
 		if (attributes == null) return;
@@ -58,15 +60,23 @@ public class RSSHandler extends DefaultHandler {
 			map.put(attributes.getLocalName(i), attributes.getValue(i));
 		}
 		if (map.isEmpty()) return;
-		if (this.inside) this.item.addMap(qName, map);
-		else this.channel.addMap(qName, map);
+		if (this.inside) this.item.addMap(name, map);
+		else this.channel.addMap(name, map);
+	}
+
+	private String createName(final String localName, final String qName) {
+		if (!StringUtil.isEmpty(localName))
+			return localName;
+		else if (!StringUtil.isEmpty(qName))
+			return qName;
+		return null;
 	}
 
 	@Override
-	public void endElement(String uri, String localName, String qName) throws SAXException {
-		if (qName.equals("channel")) {
+	public void endElement(String uri, String localName, String qName) {
+		if (localName.equals("channel") || qName.equals("channel")) {
 			this.beginParse = false;
-		} else if (qName.equals("item")) {
+		} else if (localName.equals("item") || qName.equals("item")) {
 			this.channel.addItem(this.item);
 			this.inside = false;
 		}
@@ -74,7 +84,7 @@ public class RSSHandler extends DefaultHandler {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void characters(char[] ch, int start, int length) throws SAXException {
+	public void characters(char[] ch, int start, int length) {
 		if (!this.beginParse) return;
 		String value = new String(ch, start, length).trim();
 		if (value.length() < 1) return;

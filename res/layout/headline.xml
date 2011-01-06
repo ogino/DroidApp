@@ -2,15 +2,20 @@
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
-
-<TextView android:textColor="@color/red" android:background="@color/silver" android:textSize="18pt" android:text="BBC Headline?" android:id="@+id/RSSTitle" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView><TableLayout android:id="@+id/TableLayout01" android:layout_width="wrap_content" android:layout_height="wrap_content"></TableLayout>
-
-
-
-
-
-
-
+  android:layout_height="fill_parent" android:orientation="vertical">
+<TextView android:layout_width="fill_parent" android:id="@+id/RSSTitle" android:text="BBC Headline?"
+	android:layout_height="wrap_content" android:textSize="8pt" android:textColor="@color/white"
+	android:background="@color/red" android:layout_weight="0" android:textStyle="bold" android:gravity="center">
+</TextView>
+<ScrollView android:id="@+id/HeadLineScroll" android:layout_width="wrap_content"
+	android:layout_height="wrap_content" android:layout_weight="1">
+<TableLayout android:id="@+id/TableLayout" android:layout_width="wrap_content"
+	android:layout_height="wrap_content" android:orientation="vertical"></TableLayout>
+</ScrollView>
+<HorizontalScrollView android:id="@+id/MenuScroll" android:layout_width="wrap_content"
+	android:layout_height="wrap_content" android:layout_weight="0">
+<LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+	android:id="@+id/MenuLayout" android:orientation="horizontal"></LinearLayout>
+</HorizontalScrollView>
 
 </LinearLayout>
