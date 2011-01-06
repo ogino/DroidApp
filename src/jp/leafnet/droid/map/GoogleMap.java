@@ -6,6 +6,7 @@ import jp.leafnet.droid.R;
 import jp.leafnet.droid.overlay.PinOverlay;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -16,7 +17,7 @@ import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 
-public class GoogleMap extends MapActivity implements LocationListener {
+public class GoogleMap extends MapActivity implements LocationListener, GpsStatus.Listener {
 
 	private LocationManager manager;
 	private MapView mapView;
@@ -27,7 +28,6 @@ public class GoogleMap extends MapActivity implements LocationListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		if (this.geoPoint == null) this.geoPoint = new GeoPoint(35670152, 139743327);
 		this.createMapView();
 		this.setContentView(this.mapView);
 	}
@@ -51,15 +51,19 @@ public class GoogleMap extends MapActivity implements LocationListener {
 	public void onStart() {
 		super.onStart();
 		this.createMapController();
-//		this.createOverlay();
+		createLocationManager();
+	}
+
+	private void createLocationManager() {
 		this.manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		this.manager.addGpsStatusListener(this);
 		this.manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+		this.manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
 	}
 
 	private void createMapController() {
 		this.controller = this.mapView.getController();
 		this.controller.setZoom(21);
-//		this.controller.setCenter(this.geoPoint);
 	}
 
 	private void createOverlay() {
@@ -76,7 +80,14 @@ public class GoogleMap extends MapActivity implements LocationListener {
 	@Override
 	public void onStop() {
 		super.onStop();
+		this.mapView.clearFocus();
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
 		this.manager.removeUpdates(this);
+		this.manager.removeGpsStatusListener(this);
 	}
 
 	@Override
@@ -116,6 +127,12 @@ public class GoogleMap extends MapActivity implements LocationListener {
 
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO 自動生成されたメソッド・スタブ
+		
+	}
+
+	@Override
+	public void onGpsStatusChanged(int event) {
 		// TODO 自動生成されたメソッド・スタブ
 		
 	}

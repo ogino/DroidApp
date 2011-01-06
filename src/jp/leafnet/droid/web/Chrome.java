@@ -8,18 +8,28 @@ import android.webkit.WebViewClient;
 
 public class Chrome extends Activity {
 
+	private WebView webView;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.setContentView(this.createWebView());
+		this.createWebView();
+		this.setContentView(this.webView);
 	}
 
-	private WebView createWebView() {
-		WebView webView = new WebView(this);
-		webView.setAlwaysDrawnWithCacheEnabled(false);
-		webView.loadUrl("http://blog.livedoor.jp/geek/");
-		webView.setWebViewClient(new WebViewClient() {});
-		return webView;
+	private void createWebView() {
+		this.webView = new WebView(this);
+		this.webView.setAlwaysDrawnWithCacheEnabled(false);
+		this.webView.loadUrl("http://blog.livedoor.jp/geek/");
+		this.webView.setWebViewClient(new WebViewClient() {});
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		this.webView.clearHistory();
+		this.webView.clearCache(true);
+		this.webView.clearView();
 	}
 
 //	@Override
