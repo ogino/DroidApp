@@ -7,31 +7,27 @@ import java.util.Map;
 
 public class Channel {
 
-	private List<Item> items;
-	private Map<String, Object> map;
+	private List<Item> itemList;
+	private Map<String, Object> elementMap;
 
 	public Channel() {
-		this.items = new ArrayList<Item>();
-		this.map = new HashMap<String, Object>();
+		this.itemList = new ArrayList<Item>();
+		this.elementMap = new HashMap<String, Object>();
 	}
 
 	public List<Item> getItems() {
-		return items;
+		return itemList;
 	}
 	
 	public void addItem(Item item) {
-		this.items.add(item);
-	}
-
-	public Map<String, Object> getMap() {
-		return map;
+		this.itemList.add(item);
 	}
 
 	public Object getInside(String key) {
-		return this.map.get(key);
+		return this.elementMap.get(key);
 	}
 
-	public void addMap(String key, Object value) {
-		this.map.put(key, value);
+	public void addElement(String key, Object value) {
+		this.elementMap.put(key, value);
 	}
 }

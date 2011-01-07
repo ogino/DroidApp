@@ -60,8 +60,8 @@ public class RSSHandler extends DefaultHandler {
 			map.put(attributes.getLocalName(i), attributes.getValue(i));
 		}
 		if (map.isEmpty()) return;
-		if (this.inside) this.item.addMap(name, map);
-		else this.channel.addMap(name, map);
+		if (this.inside) this.item.addElement(name, map);
+		else this.channel.addElement(name, map);
 	}
 
 	private String createName(final String localName, final String qName) {
@@ -92,13 +92,12 @@ public class RSSHandler extends DefaultHandler {
 		if (this.inside) {
 			assert(this.item != null);
 			map = this.createMap((Map<String, Object>)this.item.getInside(this.tag), createTextMap(value));
-			this.item.addMap(this.tag, map);
+			this.item.addElement(this.tag, map);
 		} else {
 			assert(this.channel != null);
 			map = this.createMap((Map<String, Object>)this.channel.getInside(this.tag), createTextMap(value));
-			this.channel.addMap(this.tag, map);
+			this.channel.addElement(this.tag, map);
 		}
-		
 	}
 
 	private Map<String, Object> createTextMap(String value) {
@@ -107,12 +106,14 @@ public class RSSHandler extends DefaultHandler {
 		return textMap;
 	}
 
-	private Map<String, Object> createMap(Map<String, Object> itemMap, Map<String, Object> textMap) {
-		if (itemMap == null) {
-			return textMap;
+	private Map<String, Object> createMap(final Map<String, Object> itemMap, final Map<String, Object> textMap) {
+		Map<String, Object> map = null;
+		if (itemMap == null)  {
+			map = new HashMap<String, Object>(textMap);
 		} else {
-			itemMap.putAll(textMap);
-			return itemMap;
+			map = new HashMap<String, Object>(itemMap);
+			if (!itemMap.containsKey("text")) map.putAll(textMap);
 		}
+		return map;
 	}
 }

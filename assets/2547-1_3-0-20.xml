@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<?xml-stylesheet title="XSL_formatting" href="/css/ne05/xsl/xslt-rss.xml" type="text/xsl"  media="screen"?>
+<rss version="2.0">
+
+
+
+
+  <channel>
+    <link>http://news.cnet.com/</link>
+    <title>CNET News.com</title>
+    <language>en-us</language>
+    <description>Tech news and business reports by CNET News. Focused oninformation technology, core topics include computers, hardware, software,networking, and Internet media..</description>
+    <copyright>2009 CBS Interactive Inc. All rights reserved</copyright>
+    <ttl>20</ttl>
+    <pubDate>January 6, 2011 5:31:52 PM PST</pubDate>
+    <lastUpdatedDate>January 6, 2011 5:31:52 PM PST</lastUpdatedDate>
+    <category>CNET News.com</category>
+    <generator>CNET</generator>
+    <docs>http://www.news.com/2009-1090-980549.html</docs>
+
+    <image>
+      <title>CNET News.com</title>
+      <url>http://i.i.com.com/cnwk.1d/i/ne/gr/prtnr/rss_logo.gif</url>
+      <link>http://www.news.com/</link>
+      <width>88</width>
+      <height>31</height>
+    </image>
+
+    <item>
+      <title><![CDATA[CES: Clarity phones for seniors get customer service redo]]></title>
+      <link>http://www.cnet.com/8301-32254_1-20027700-283.html?part=rss&amp;subj=news&amp;tag=2547-1_3-0-20</link>
+      <guid isPermaLink="false">http://www.cnet.com/8301-32254_1-20027700-283.html</guid>
+      <pubDate>Thu, 06 Jan 2011 16:57:01 PST</pubDate>
+      <description><![CDATA[ClarityLogic gives customer service reps full access to Clarity phones, helping seniors and hearing-impaired diagnose and fix any phone issues faster.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[CES: Grab a robotic massage from the WheeMe]]></title>
+      <link>http://www.cnet.com/8301-32254_1-20027676-283.html?part=rss&amp;subj=news&amp;tag=2547-1_3-0-20</link>
+      <guid isPermaLink="false">http://www.cnet.com/8301-32254_1-20027676-283.html</guid>
+      <pubDate>Thu, 06 Jan 2011 16:50:37 PST</pubDate>
+      <description><![CDATA[The tiny WheeMe robot from DreamBots can provide a full back massage when your favorite human masseuse isn't available.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[CES: Mini generator powers bike lights, speakers]]></title>
+      <link>http://www.cnet.com/8301-32254_1-20027692-283.html?part=rss&amp;subj=news&amp;tag=2547-1_3-0-20</link>
+      <guid isPermaLink="false">http://www.cnet.com/8301-32254_1-20027692-283.html</guid>
+      <pubDate>Thu, 06 Jan 2011 16:37:27 PST</pubDate>
+      <description><![CDATA[Jooyn Power Shenzen introduces a rear-wheel mini generator, bike lights, and a sound system with multiple speakers, all with a controller that mounts to handlebars.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[CES: Flix on Stix moves movies from kiosk to USB]]></title>
+      <link>http://www.cnet.com/8301-32254_1-20027693-283.html?part=rss&amp;subj=news&amp;tag=2547-1_3-0-20</link>
+      <guid isPermaLink="false">http://www.cnet.com/8301-32254_1-20027693-283.html</guid>
+      <pubDate>Thu, 06 Jan 2011 16:23:18 PST</pubDate>
+      <description><![CDATA[Launching a series of kiosks throughout the United States, Flix on Stix plans to enable people to download movies onto a USB stick, and watch them on their home computer.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[CES: Conquer China (and get some cheap speakers)]]></title>
+      <link>http://news.cnet.com/8301-17852_3-20027627-71.html?part=rss&amp;subj=news&amp;tag=2547-1_3-0-20</link>
+      <guid isPermaLink="false">http://news.cnet.com/8301-17852_3-20027627-71.html</guid>
+      <pubDate>Thu, 06 Jan 2011 15:58:08 PST</pubDate>
+      <description><![CDATA[Perhaps the greatest company name so far at CES is Conquer (China). It says it can make beautiful speakers compatible with your iPod or iPad. And they're cheap.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[CES: Sony's tablet not aiming to be an iPad killer]]></title>
+      <link>http://www.cnet.com/8301-32254_1-20027680-283.html?part=rss&amp;subj=news&amp;tag=2547-1_3-0-20</link>
+      <guid isPermaLink="false">http://www.cnet.com/8301-32254_1-20027680-283.html</guid>
+      <pubDate>Thu, 06 Jan 2011 15:24:58 PST</pubDate>
+      <description><![CDATA[Sony officially says that it's working on a tablet, but it's not ready yet. Still, the company has big plans to play catch up to the iPad sometime next year.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[CES: Citi swiping Dynamics' 'smart' credit cards]]></title>
+      <link>http://www.cnet.com/8301-32254_1-20027681-283.html?part=rss&amp;subj=news&amp;tag=2547-1_3-0-20</link>
+      <guid isPermaLink="false">http://www.cnet.com/8301-32254_1-20027681-283.html</guid>
+      <pubDate>Thu, 06 Jan 2011 15:04:25 PST</pubDate>
+      <description><![CDATA[Company behind innovative smart credit cards gets a big banking customer. Citigroup's trial cards let users pay with either their regular credit account or reward points.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[GM and LG Chem pen new agreement with Argonne for next-gen battery technology]]></title>
+      <link>http://reviews.cnet.com/8301-13746_7-20027664-48.html?part=rss&amp;subj=news&amp;tag=2547-1_3-0-20</link>
+      <guid isPermaLink="false">http://reviews.cnet.com/8301-13746_7-20027664-48.html</guid>
+      <pubDate>Thu, 06 Jan 2011 14:58:13 PST</pubDate>
+      <description><![CDATA[General Motors has licensed the use of patented material for next-generation battery packs developed by the Department of Energy's Argonne National Laboratory.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[NASA working on waking Mars Spirit rover]]></title>
+      <link>http://news.cnet.com/8301-13506_3-20027640-17.html?part=rss&amp;subj=news&amp;tag=2547-1_3-0-20</link>
+      <guid isPermaLink="false">http://news.cnet.com/8301-13506_3-20027640-17.html</guid>
+      <pubDate>Thu, 06 Jan 2011 14:15:12 PST</pubDate>
+      <description><![CDATA[Spirit has been out of commission for months. But NASA's Mars rover project manager says the organization is attempting to wake it up and put it back to work.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[CES: Vader invades Vegas to pump Blu-ray set]]></title>
+      <link>http://www.cnet.com/8301-32254_1-20027604-283.html?part=rss&amp;subj=news&amp;tag=2547-1_3-0-20</link>
+      <guid isPermaLink="false">http://www.cnet.com/8301-32254_1-20027604-283.html</guid>
+      <pubDate>Thu, 06 Jan 2011 14:07:07 PST</pubDate>
+      <description><![CDATA[Amazon.com starts discounted $89.99 preorders for the nine-disc "Star Wars" Blu-ray set, as Darth Vader does Vegas (with the help of executives from Amazon and Fox).]]></description>
+    </item>
+    <item>
+      <title><![CDATA[CES: Withings rethinks blood pressure monitor]]></title>
+      <link>http://www.cnet.com/8301-32254_1-20027628-283.html?part=rss&amp;subj=news&amp;tag=2547-1_3-0-20</link>
+      <guid isPermaLink="false">http://www.cnet.com/8301-32254_1-20027628-283.html</guid>
+      <pubDate>Thu, 06 Jan 2011 13:57:21 PST</pubDate>
+      <description><![CDATA[French start-up Withings unveils a sleek and lightweight blood pressure monitor, which goes on sale this month for $129 and works with an iPhone, iPad, or iPod Touch.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[CES: Skystream turbine makes most of air stream]]></title>
+      <link>http://news.cnet.com/8301-11128_3-20027623-54.html?part=rss&amp;subj=news&amp;tag=2547-1_3-0-20</link>
+      <guid isPermaLink="false">http://news.cnet.com/8301-11128_3-20027623-54.html</guid>
+      <pubDate>Thu, 06 Jan 2011 13:45:19 PST</pubDate>
+      <description><![CDATA[Southwest Windpower unveils small wind turbine with claim of 7,400 kilowatt-hours of electricity per year under 12 mph average conditions.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[CES: World's smallest waterproof MP3 player gets bigger]]></title>
+      <link>http://www.cnet.com/8301-32254_1-20027642-283.html?part=rss&amp;subj=news&amp;tag=2547-1_3-0-20</link>
+      <guid isPermaLink="false">http://www.cnet.com/8301-32254_1-20027642-283.html</guid>
+      <pubDate>Thu, 06 Jan 2011 13:39:32 PST</pubDate>
+      <description><![CDATA[The UWaterG2, a waterproof MP3 player whose built-in lithium ion rechargeable battery lasts six to eight hours, is about to bump up to 4GB and 8GB.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[GE's connected, energy-savvy home (photos)]]></title>
+      <link>http://news.cnet.com/2300-11128_3-10006136.html?part=rss&amp;subj=news&amp;tag=2547-1_3-0-20</link>
+      <guid isPermaLink="false">http://news.cnet.com/2300-11128_3-10006136.html</guid>
+      <pubDate>Thu, 06 Jan 2011 13:31:50 PST</pubDate>
+      <description><![CDATA[General Electric is showing off its digital energy offering at CES, including a home energy manager, wind turbine, and electric-vehicle charger.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[Apple denies it's searching for new CFO]]></title>
+      <link>http://news.cnet.com/8301-13579_3-20027649-37.html?part=rss&amp;subj=news&amp;tag=2547-1_3-0-20</link>
+      <guid isPermaLink="false">http://news.cnet.com/8301-13579_3-20027649-37.html</guid>
+      <pubDate>Thu, 06 Jan 2011 13:31:38 PST</pubDate>
+      <description><![CDATA[The company is denying a Bloomberg report that it approached Blackstone's chief financial officer, Laurence Tosi, to take over the role at Apple.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[CES: GE readies energy display for 'home of the future']]></title>
+      <link>http://www.cnet.com/8301-32254_1-20027645-283.html?part=rss&amp;subj=news&amp;tag=2547-1_3-0-20</link>
+      <guid isPermaLink="false">http://www.cnet.com/8301-32254_1-20027645-283.html</guid>
+      <pubDate>Thu, 06 Jan 2011 13:09:18 PST</pubDate>
+      <description><![CDATA[General Electric's digital energy display shows off a multi-product system for managing home energy, generate electricity at home, and manage electric-vehicle charging.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[CES: Verizon unveils bevy of 4G devices (live blog)]]></title>
+      <link>http://www.cnet.com/8301-32254_1-20027366-283.html?part=rss&amp;subj=news&amp;tag=2547-1_3-0-20</link>
+      <guid isPermaLink="false">http://www.cnet.com/8301-32254_1-20027366-283.html</guid>
+      <pubDate>Thu, 06 Jan 2011 12:29:00 PST</pubDate>
+      <description><![CDATA[At press conference, Verizon unveils a table full of new devices--10 in total--expected to make it to store shelves by the middle of this year. Among them is LG Revolution and HTC Thunderbolt.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[CES: Dell targets Gen Y with Streak 7 tablet, speedy gaming]]></title>
+      <link>http://www.cnet.com/8301-32254_1-20027633-283.html?part=rss&amp;subj=news&amp;tag=2547-1_3-0-20</link>
+      <guid isPermaLink="false">http://www.cnet.com/8301-32254_1-20027633-283.html</guid>
+      <pubDate>Thu, 06 Jan 2011 12:19:08 PST</pubDate>
+      <description><![CDATA[Dell news from CES: Streak 7 tablet, Venue smartphone, and the new Alienware M17x 3D, the "most powerful product to be introduced in the universe."]]></description>
+    </item>
+    <item>
+      <title><![CDATA[Microsoft to fix Windows holes, but not ones in IE]]></title>
+      <link>http://news.cnet.com/8301-27080_3-20027620-245.html?part=rss&amp;subj=news&amp;tag=2547-1_3-0-20</link>
+      <guid isPermaLink="false">http://news.cnet.com/8301-27080_3-20027620-245.html</guid>
+      <pubDate>Thu, 06 Jan 2011 11:32:41 PST</pubDate>
+      <description><![CDATA[Patch Tuesday will have fixes for three Windows holes but IE vulnerabilities reportedly being exploited in attacks will not be among them.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[With solar power, it's Green vs. Green]]></title>
+      <link>http://news.cnet.com/8301-11128_3-20027607-54.html?part=rss&amp;subj=news&amp;tag=2547-1_3-0-20</link>
+      <guid isPermaLink="false">http://news.cnet.com/8301-11128_3-20027607-54.html</guid>
+      <pubDate>Thu, 06 Jan 2011 11:03:16 PST</pubDate>
+      <description><![CDATA[The push to create an alternative to carbon-based fuel with massive solar plants has hit an unlikely snag: environmentalists.]]></description>
+    </item>
+ </channel>
+</rss>

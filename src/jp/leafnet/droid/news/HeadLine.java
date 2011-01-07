@@ -11,22 +11,29 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import jp.leafnet.droid.R;
 import jp.leafnet.droid.dialog.factory.ProgressDialogFactory;
+import jp.leafnet.droid.web.Chrome;
 import jp.leafnet.droid.xml.RSSParser;
 import jp.leafnet.droid.xml.rss.Channel;
+import jp.leafnet.droid.xml.rss.Item;
 
 import org.xml.sax.SAXException;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 public class HeadLine extends Activity implements OnClickListener {
@@ -36,6 +43,7 @@ public class HeadLine extends Activity implements OnClickListener {
 	private List<String> menuUrls;
 	private List<String> bodyUrls;
 	private ProgressDialog dialog;
+	private Boolean loaded;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +60,9 @@ public class HeadLine extends Activity implements OnClickListener {
 	private void createBasis() {
 		this.parser = new RSSParser();
 		this.menuUrls = new ArrayList<String>();
+		this.bodyUrls =  new ArrayList<String>();
 		this.createMenuScroll();
+		this.loaded = false;
 	}
 
 	private void createMenuScroll() {
@@ -79,11 +89,15 @@ public class HeadLine extends Activity implements OnClickListener {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		this.createHeadLines();
+		if (!this.loaded) {
+			this.createHeadLines();
+			this.loaded = true;
+		}
 	}
 
 	private void createHeadLines() {
 		this.dialog.show();
+		this.bodyUrls.clear();
 		Thread thread = new Thread(runnable);
 		thread.start();
 	}
@@ -93,11 +107,7 @@ public class HeadLine extends Activity implements OnClickListener {
 		public void run() {
 			try {
 				parser.createChannel(menuUrls.get(index));
-				Message message = new Message();
-				Bundle bundle = new Bundle();
-				bundle.putString("", "");
-				message.setData(bundle);
-				handler.sendMessage(message);
+				handler.sendMessage(createMessage());
 			} catch (SAXException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -112,15 +122,83 @@ public class HeadLine extends Activity implements OnClickListener {
 		}
 	};
 	
+	private Message createMessage() {
+		Message message = new Message();
+		Bundle bundle = new Bundle();
+		bundle.putString("", "");
+		message.setData(bundle);
+		return message;
+	}
+
 	private final Handler handler = new Handler() {
 		@SuppressWarnings("unchecked")
 		public void handleMessage(Message msg) {
 			Channel channel = parser.getHandler().getChannel();
-			String title = ((Map<String, Object>)channel.getInside("title")).get("text").toString();
-			TextView textView = (TextView)findViewById(R.id.RSSTitle);
-			textView.setText(title);
+			createTitle(((Map<String, Object>)channel.getInside("title")).get("text").toString());
+			createTable(channel.getItems());
 		}
 	};
+	
+	private void createTitle(String title) {
+		TextView textView = (TextView)findViewById(R.id.RSSTitle);
+		textView.setText(title);
+	}
+
+	private final Integer ROWID_BEGIN = 9999;
+
+	@SuppressWarnings("unchecked")
+	private void createTable(List<Item> itemList) {
+		TableLayout layout = (TableLayout)findViewById(R.id.HeadLineTable);
+		layout.removeAllViews();
+		Integer id = ROWID_BEGIN + 1;
+		for (Item item : itemList) {
+			layout.addView(createTableRow(item, id++));
+			this.bodyUrls.add(((Map<String, Object>)item.getInside("link")).get("text").toString());
+		}
+	}
+
+	private TableRow createTableRow(Item item, Integer id) {
+		TableRow row = new TableRow(this);
+		row.setBackgroundColor(Color.BLACK);
+		LinearLayout layout = createInnerLayout(item);
+		row.addView(layout, createRowLayout(10, 1));
+		row.setId(id);
+		row.setOnClickListener(this);
+		return row;
+	}
+
+	private LinearLayout createInnerLayout(Item item) {
+		LinearLayout layout = new LinearLayout(this);
+		layout.setOrientation(LinearLayout.VERTICAL);
+		layout.addView(createTitleView(item));
+		layout.addView(createDescriptView(item));
+		return layout;
+	}
+
+	private LayoutParams createRowLayout(int span, int margin) {
+		TableRow.LayoutParams rowLayout = new TableRow.LayoutParams();
+        rowLayout.span = span;
+        rowLayout.bottomMargin = margin;
+		return rowLayout;
+	}
+
+	@SuppressWarnings("unchecked")
+	private TextView createDescriptView(Item item) {
+		TextView descriptView = new TextView(this);
+		descriptView.setBackgroundColor(Color.WHITE);
+		descriptView.setTextSize(10);
+		descriptView.setText(((Map<String, Object>)item.getInside("description")).get("text").toString());
+		return descriptView;
+	}
+
+	@SuppressWarnings("unchecked")
+	private TextView createTitleView(Item item) {
+		TextView titleView = new TextView(this);
+		titleView.setBackgroundColor(Color.WHITE);
+		titleView.setTypeface(Typeface.DEFAULT_BOLD);
+		titleView.setText(((Map<String, Object>)item.getInside("title")).get("text").toString());
+		return titleView;
+	}
 
 	@Override
 	protected void onResume() {
@@ -144,10 +222,15 @@ public class HeadLine extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-//		Intent intent = new Intent(this, Chrome.class);
-//		intent.putExtra("URL", menuUrls.get(v.getId()).toString());
-//		this.startActivity(intent);
-		this.index = v.getId();
-		this.createHeadLines();
+		Integer id = v.getId();
+		if (id > ROWID_BEGIN) {
+			id = id % (ROWID_BEGIN + 1);
+			Intent intent = new Intent(this, Chrome.class);
+			intent.putExtra("URL", bodyUrls.get(id));
+			this.startActivity(intent);
+		} else {
+			this.index = id;
+			this.createHeadLines();
+		}
 	}
 }
