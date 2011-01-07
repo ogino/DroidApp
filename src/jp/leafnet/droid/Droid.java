@@ -56,8 +56,8 @@ public class Droid extends Activity {
 
 	public void showWebView(View v) {
 		Intent intent = new Intent(this, Chrome.class);
-//		intent.putExtra("URL", "http://blog.livedoor.jp/dqnplus/lite/");
-		intent.putExtra("URL", "file:///android_asset/edition.rss");
+		intent.putExtra("URL", "http://blog.livedoor.jp/dqnplus/lite/");
+//		intent.putExtra("URL", "file:///android_asset/edition.rss");
 		this.startActivity(intent);
 	}
 

@@ -159,7 +159,7 @@ public class HeadLine extends Activity implements OnClickListener {
 
 	private TableRow createTableRow(Item item, Integer id) {
 		TableRow row = new TableRow(this);
-		row.setBackgroundColor(Color.BLACK);
+		row.setBackgroundColor(Color.LTGRAY);
 		LinearLayout layout = createInnerLayout(item);
 		row.addView(layout, createRowLayout(10, 1));
 		row.setId(id);

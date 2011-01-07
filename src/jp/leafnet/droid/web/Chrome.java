@@ -1,5 +1,7 @@
 package jp.leafnet.droid.web;
 
+import java.lang.reflect.Field;
+
 import jp.leafnet.droid.dialog.factory.ProgressDialogFactory;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -7,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.KeyEvent;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -32,6 +35,22 @@ public class Chrome extends Activity {
 		this.webView.setAlwaysDrawnWithCacheEnabled(false);
 		this.webView.loadUrl(getIntent().getStringExtra("URL"));
 		this.webView.setWebViewClient(new WebViewClient() {});
+		createWebSettings();
+	}
+
+	private void createWebSettings() {
+		WebSettings settings = this.webView.getSettings();
+		settings.setBuiltInZoomControls(true);
+		settings.setSupportZoom(true);
+		settings.setUserAgentString("Mozilla/5.0 (Linux; U; Android 2.3; ja-jp; google_sdk Build/GRH55) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
+		try{
+		    Field nameField = settings.getClass().getDeclaredField("mBuiltInZoomControls");
+		    nameField.setAccessible(true);
+		    nameField.set(settings, false);
+		}catch(Exception e){
+		    e.printStackTrace();
+		    settings.setBuiltInZoomControls(false);
+		}
 	}
 
 	@Override
