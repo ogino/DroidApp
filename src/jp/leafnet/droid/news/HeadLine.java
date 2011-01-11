@@ -249,7 +249,7 @@ public class HeadLine extends Activity implements OnClickListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case FINISH_ID:
-			this.finish();
+			super.finish();
 			break;
 		}
 		return super.onOptionsItemSelected(item);

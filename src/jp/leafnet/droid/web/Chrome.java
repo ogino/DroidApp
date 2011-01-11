@@ -1,6 +1,7 @@
 package jp.leafnet.droid.web;
 
 import java.lang.reflect.Field;
+import java.util.ResourceBundle;
 
 import jp.leafnet.droid.R;
 import jp.leafnet.droid.web.view.ChromeViewClinent;
@@ -41,7 +42,7 @@ public class Chrome extends Activity {
 		WebSettings settings = this.webView.getSettings();
 		settings.setBuiltInZoomControls(true);
 		settings.setSupportZoom(true);
-		settings.setUserAgentString("Mozilla/5.0 (Linux; U; Android 2.3; ja-jp; google_sdk Build/GRH55) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
+		settings.setUserAgentString(this.createUserAgent());
 		try{
 		    Field nameField = settings.getClass().getDeclaredField("mBuiltInZoomControls");
 		    nameField.setAccessible(true);
@@ -50,6 +51,11 @@ public class Chrome extends Activity {
 		    e.printStackTrace();
 		    settings.setBuiltInZoomControls(false);
 		}
+	}
+
+	private String createUserAgent() {
+		ResourceBundle bundle = ResourceBundle.getBundle("chrome");
+		return bundle.getString("chrome.useragent");
 	}
 
 	@Override
