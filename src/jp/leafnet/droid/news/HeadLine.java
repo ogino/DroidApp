@@ -40,7 +40,6 @@ import android.widget.TextView;
 
 public class HeadLine extends Activity implements OnClickListener {
 
-//	private RSSParser parser;
 	private RSSPullParser parser;
 	private Channel channel;
 	private Integer index;
@@ -59,7 +58,6 @@ public class HeadLine extends Activity implements OnClickListener {
 	}
 
 	private void createBasis() {
-//		this.parser = new RSSParser();
 		this.parser = new RSSPullParser();
 		this.menuUrls = new ArrayList<String>();
 		this.bodyUrls =  new ArrayList<String>();
@@ -113,20 +111,6 @@ public class HeadLine extends Activity implements OnClickListener {
 	private Runnable runnable = new Runnable() {
 		@Override
 		public void run() {
-//			try {
-//				parser.createChannel(menuUrls.get(index));
-//				handler.sendMessage(createMessage());
-//			} catch (SAXException e) {
-//				logger.log(Level.SEVERE, e.getLocalizedMessage());
-//			} catch (IOException e) {
-//				logger.log(Level.SEVERE, e.getLocalizedMessage());
-//			} catch (ParserConfigurationException e) {
-//				logger.log(Level.SEVERE, e.getLocalizedMessage());
-//			} catch (FactoryConfigurationError e) {
-//				logger.log(Level.SEVERE, e.getLocalizedMessage());
-//			} finally {
-//				dialog.cancel();
-//			}
 			try {
 				channel = parser.createChannel(menuUrls.get(index));
 				handler.sendMessage(createMessage());
@@ -152,7 +136,6 @@ public class HeadLine extends Activity implements OnClickListener {
 	private final Handler handler = new Handler() {
 		@SuppressWarnings("unchecked")
 		public void handleMessage(Message msg) {
-//			Channel channel = parser.getHandler().getChannel();
 			createTitle(((Map<String, Object>)channel.getInside("title")).get("text").toString());
 			createTable(channel.getItems());
 		}
