@@ -91,11 +91,11 @@ public class RSSHandler extends DefaultHandler {
 		Map<String, Object> map = null;
 		if (this.inside) {
 			assert(this.item != null);
-			map = this.createMap((Map<String, Object>)this.item.getInside(this.tag), createTextMap(value));
+			map = this.createMap((Map<String, Object>)this.item.getInside(this.tag), createTextMap(StringUtil.removeTags(value)));
 			this.item.addElement(this.tag, map);
 		} else {
 			assert(this.channel != null);
-			map = this.createMap((Map<String, Object>)this.channel.getInside(this.tag), createTextMap(value));
+			map = this.createMap((Map<String, Object>)this.channel.getInside(this.tag), createTextMap(StringUtil.removeTags(value)));
 			this.channel.addElement(this.tag, map);
 		}
 	}

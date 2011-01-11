@@ -55,17 +55,18 @@ public class HeadLine extends Activity implements OnClickListener {
 		this.createBasis();
 	}
 
-	private void createDialog() {
-		this.dialog = ProgressDialogFactory.getSpinnerInstance(this, "Now Loading...");
-	}
-
 	private void createBasis() {
 		this.parser = new RSSParser();
 		this.menuUrls = new ArrayList<String>();
 		this.bodyUrls =  new ArrayList<String>();
 		this.createMenuScroll();
+		this.createDialog();
 		this.loaded = false;
 		this.logger =  Logger.getLogger("Exception");
+	}
+	
+	private void createDialog() {
+		this.dialog = ProgressDialogFactory.getSpinnerInstance(this, "Now Loading...");
 	}
 
 	private void createMenuScroll() {
@@ -99,7 +100,6 @@ public class HeadLine extends Activity implements OnClickListener {
 	}
 
 	private void createHeadLines() {
-		this.createDialog();
 		this.dialog.show();
 		this.bodyUrls.clear();
 		Thread thread = new Thread(runnable);
@@ -121,7 +121,7 @@ public class HeadLine extends Activity implements OnClickListener {
 			} catch (FactoryConfigurationError e) {
 				logger.log(Level.SEVERE, e.getLocalizedMessage());
 			} finally {
-				dialog.dismiss();
+				dialog.cancel();
 			}
 		}
 	};

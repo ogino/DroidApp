@@ -2,40 +2,32 @@ package jp.leafnet.droid.web;
 
 import java.lang.reflect.Field;
 
-import jp.leafnet.droid.dialog.factory.ProgressDialogFactory;
+import jp.leafnet.droid.web.view.ChromeViewClinent;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.KeyEvent;
+import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 public class Chrome extends Activity {
 
 	private WebView webView;
-	private ProgressDialog dialog;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.createDialog();
+		this.requestWindowFeature(Window.FEATURE_PROGRESS);
 		this.createWebView();
-		this.setContentView(this.webView);
-	}
-	
-	private void createDialog() {
-		this.dialog = ProgressDialogFactory.getSpinnerInstance(this, "Now Loading...");
+		this.setContentView(this.webView);;
 	}
 
 	private void createWebView() {
 		this.webView = new WebView(this);
 		this.webView.setAlwaysDrawnWithCacheEnabled(false);
 		this.webView.loadUrl(getIntent().getStringExtra("URL"));
-		this.webView.setWebViewClient(new WebViewClient() {});
-		createWebSettings();
+		this.webView.setWebViewClient(new ChromeViewClinent(this));
+		this.createWebSettings();
 	}
 
 	private void createWebSettings() {
@@ -56,7 +48,6 @@ public class Chrome extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		this.dialog.show();
 		Thread thread = new Thread(runnable);
 		thread.start();
 	}
@@ -65,21 +56,6 @@ public class Chrome extends Activity {
 		@Override
 		public void run() {
 			webView.loadUrl(getIntent().getStringExtra("URL"));
-			handler.sendMessage(createMessage());
-		}
-	};
-
-	private Message createMessage() {
-		Message message = new Message();
-		Bundle bundle = new Bundle();
-		bundle.putString("", "");
-		message.setData(bundle);
-		return message;
-	}
-
-	private final Handler handler = new Handler() {
-		public void handleMessage(Message msg) {
-			dialog.dismiss();
 		}
 	};
 
