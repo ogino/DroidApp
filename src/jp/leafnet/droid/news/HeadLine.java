@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
@@ -44,11 +46,11 @@ public class HeadLine extends Activity implements OnClickListener {
 	private List<String> bodyUrls;
 	private ProgressDialog dialog;
 	private Boolean loaded;
+	private Logger logger;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		createDialog();
 		setContentView(R.layout.headline);
 		this.createBasis();
 	}
@@ -63,6 +65,7 @@ public class HeadLine extends Activity implements OnClickListener {
 		this.bodyUrls =  new ArrayList<String>();
 		this.createMenuScroll();
 		this.loaded = false;
+		this.logger =  Logger.getLogger("Exception");
 	}
 
 	private void createMenuScroll() {
@@ -96,6 +99,7 @@ public class HeadLine extends Activity implements OnClickListener {
 	}
 
 	private void createHeadLines() {
+		this.createDialog();
 		this.dialog.show();
 		this.bodyUrls.clear();
 		Thread thread = new Thread(runnable);
@@ -109,13 +113,13 @@ public class HeadLine extends Activity implements OnClickListener {
 				parser.createChannel(menuUrls.get(index));
 				handler.sendMessage(createMessage());
 			} catch (SAXException e) {
-				e.printStackTrace();
+				logger.log(Level.SEVERE, e.getLocalizedMessage());
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.log(Level.SEVERE, e.getLocalizedMessage());
 			} catch (ParserConfigurationException e) {
-				e.printStackTrace();
+				logger.log(Level.SEVERE, e.getLocalizedMessage());
 			} catch (FactoryConfigurationError e) {
-				e.printStackTrace();
+				logger.log(Level.SEVERE, e.getLocalizedMessage());
 			} finally {
 				dialog.dismiss();
 			}
