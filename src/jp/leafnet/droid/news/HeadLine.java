@@ -121,7 +121,6 @@ public class HeadLine extends Activity implements OnClickListener {
 			} finally {
 				dialog.cancel();
 			}
-			
 		}
 	};
 	
@@ -136,8 +135,10 @@ public class HeadLine extends Activity implements OnClickListener {
 	private final Handler handler = new Handler() {
 		@SuppressWarnings("unchecked")
 		public void handleMessage(Message msg) {
-			createTitle(((Map<String, Object>)channel.getInside("title")).get("text").toString());
-			createTable(channel.getItems());
+			synchronized (channel) {
+				createTitle(((Map<String, Object>)channel.getInside("title")).get("text").toString());
+				createTable(channel.getItems());
+			}
 		}
 	};
 	
@@ -149,7 +150,7 @@ public class HeadLine extends Activity implements OnClickListener {
 	private final Integer ROWID_BEGIN = 9999;
 
 	@SuppressWarnings("unchecked")
-	private void createTable(List<Item> itemList) {
+	private void createTable(final List<Item> itemList) {
 		TableLayout layout = (TableLayout)findViewById(R.id.HeadLineTable);
 		layout.removeAllViews();
 		Integer id = ROWID_BEGIN + 1;
@@ -159,7 +160,7 @@ public class HeadLine extends Activity implements OnClickListener {
 		}
 	}
 
-	private TableRow createTableRow(Item item, Integer id) {
+	private TableRow createTableRow(final Item item, final Integer id) {
 		TableRow row = new TableRow(this);
 		row.setBackgroundColor(Color.LTGRAY);
 		LinearLayout layout = createInnerLayout(item);
@@ -249,7 +250,7 @@ public class HeadLine extends Activity implements OnClickListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case FINISH_ID:
-			super.finish();
+			this.finish();
 			break;
 		}
 		return super.onOptionsItemSelected(item);

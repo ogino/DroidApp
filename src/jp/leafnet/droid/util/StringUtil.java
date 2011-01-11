@@ -22,13 +22,6 @@ public class StringUtil {
 		Matcher matcher = pattern.matcher(modified);
 		return matcher.replaceAll("");
 	}
-	
-	public static String replaceString(final String source, final String target, final String replace) {
-		String modified = new String(source);
-		Pattern pattern =  Pattern.compile(target);
-		Matcher matcher = pattern.matcher(modified);
-		return matcher.replaceAll(replace);
-	}
 
 	public static String removeTags(final String source) {
 		String modified = removeTags(source, "<(\"[^\"]*\"|'[^']*'|[^'\">])*>");
@@ -37,7 +30,7 @@ public class StringUtil {
 
 	private static String replaceHTMLTags(final String source) {
 		String modified = new String(source);
-		return modified.replace("&nbsp;", " ").replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&").replace("&quot;", "\"");
+		return modified.replace("&nbsp;", " ").replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&").replace("&quot;", "\"").replace("\n", "");
 	}
 
 }

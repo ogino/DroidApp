@@ -55,7 +55,7 @@ public class RSSPullParser {
 	
 	@SuppressWarnings("unchecked")
 	private void createText(XmlPullParser parser) {
-		String value = parser.getText();
+		String value = parser.getText().trim();
 		if (StringUtil.isEmpty(value) || StringUtil.isEmpty(this.tag)) return;
 		Map<String, Object> map = null;
 		if (this.inside) {
