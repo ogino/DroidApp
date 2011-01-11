@@ -40,11 +40,11 @@ public class RSSHandler extends DefaultHandler {
 	
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) {
-		if (localName.equals("channel") || qName.equals("channel")) {
+		if (StringUtil.isEquals(localName, "channel") || StringUtil.isEquals(qName, "channel")) {
 			this.beginParse = true;
 			this.channel = new Channel();
 			return;
-		} else if ((localName.equals("item") || qName.equals("item")) && !this.inside) {
+		} else if ((StringUtil.isEquals(localName, "item") || StringUtil.isEquals(qName, "item")) && !this.inside) {
 			this.item = new Item();
 			this.inside = true;
 			return;
@@ -74,9 +74,9 @@ public class RSSHandler extends DefaultHandler {
 
 	@Override
 	public void endElement(String uri, String localName, String qName) {
-		if (localName.equals("channel") || qName.equals("channel")) {
+		if (StringUtil.isEquals(localName, "channel") || StringUtil.isEquals(qName, "channel")) {
 			this.beginParse = false;
-		} else if (localName.equals("item") || qName.equals("item")) {
+		} else if (StringUtil.isEquals(localName, "item") || StringUtil.isEquals(qName, "item")) {
 			this.channel.addItem(this.item);
 			this.inside = false;
 		}
