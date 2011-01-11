@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import jp.leafnet.droid.R;
 import jp.leafnet.droid.dialog.factory.ProgressDialogFactory;
 import jp.leafnet.droid.web.Chrome;
-import jp.leafnet.droid.xml.RSSPullParser;
+import jp.leafnet.droid.xml.RSSParser;
 import jp.leafnet.droid.xml.rss.Channel;
 import jp.leafnet.droid.xml.rss.Item;
 
@@ -40,7 +40,7 @@ import android.widget.TextView;
 
 public class HeadLine extends Activity implements OnClickListener {
 
-	private RSSPullParser parser;
+	private RSSParser parser;
 	private Channel channel;
 	private Integer index;
 	private List<String> menuUrls;
@@ -58,7 +58,7 @@ public class HeadLine extends Activity implements OnClickListener {
 	}
 
 	private void createBasis() {
-		this.parser = new RSSPullParser();
+		this.parser = new RSSParser();
 		this.menuUrls = new ArrayList<String>();
 		this.bodyUrls =  new ArrayList<String>();
 		this.createMenuScroll();
@@ -102,6 +102,7 @@ public class HeadLine extends Activity implements OnClickListener {
 	}
 
 	private void createHeadLines() {
+		this.createDialog();
 		this.dialog.show();
 		this.bodyUrls.clear();
 		Thread thread = new Thread(runnable);
@@ -119,7 +120,7 @@ public class HeadLine extends Activity implements OnClickListener {
 			} catch (XmlPullParserException e) {
 				logger.log(Level.SEVERE, e.getLocalizedMessage());
 			} finally {
-				dialog.cancel();
+				dialog.dismiss();
 			}
 		}
 	};
