@@ -32,7 +32,12 @@ public class StringUtil {
 
 	public static String removeTags(final String source) {
 		String modified = removeTags(source, "<(\"[^\"]*\"|'[^']*'|[^'\">])*>");
-		return replaceString(modified, "&nbsp;", " ");
+		return replaceHTMLTags(modified);
+	}
+
+	private static String replaceHTMLTags(final String source) {
+		String modified = new String(source);
+		return modified.replace("&nbsp;", " ").replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&").replace("&quot;", "\"");
 	}
 
 }

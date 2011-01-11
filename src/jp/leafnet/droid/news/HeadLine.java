@@ -8,17 +8,14 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.xml.parsers.FactoryConfigurationError;
-import javax.xml.parsers.ParserConfigurationException;
-
 import jp.leafnet.droid.R;
 import jp.leafnet.droid.dialog.factory.ProgressDialogFactory;
 import jp.leafnet.droid.web.Chrome;
-import jp.leafnet.droid.xml.RSSParser;
+import jp.leafnet.droid.xml.RSSPullParser;
 import jp.leafnet.droid.xml.rss.Channel;
 import jp.leafnet.droid.xml.rss.Item;
 
-import org.xml.sax.SAXException;
+import org.xmlpull.v1.XmlPullParserException;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -30,6 +27,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
@@ -40,7 +38,9 @@ import android.widget.TextView;
 
 public class HeadLine extends Activity implements OnClickListener {
 
-	private RSSParser parser;
+//	private RSSParser parser;
+	private RSSPullParser parser;
+	private Channel channel;
 	private Integer index;
 	private List<String> menuUrls;
 	private List<String> bodyUrls;
@@ -51,18 +51,20 @@ public class HeadLine extends Activity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.headline);
 		this.createBasis();
 	}
 
 	private void createBasis() {
-		this.parser = new RSSParser();
+//		this.parser = new RSSParser();
+		this.parser = new RSSPullParser();
 		this.menuUrls = new ArrayList<String>();
 		this.bodyUrls =  new ArrayList<String>();
 		this.createMenuScroll();
 		this.createDialog();
 		this.loaded = false;
-		this.logger =  Logger.getLogger("Exception");
+		this.logger =  Logger.getLogger(HeadLine.class.getName());
 	}
 	
 	private void createDialog() {
@@ -109,20 +111,31 @@ public class HeadLine extends Activity implements OnClickListener {
 	private Runnable runnable = new Runnable() {
 		@Override
 		public void run() {
+//			try {
+//				parser.createChannel(menuUrls.get(index));
+//				handler.sendMessage(createMessage());
+//			} catch (SAXException e) {
+//				logger.log(Level.SEVERE, e.getLocalizedMessage());
+//			} catch (IOException e) {
+//				logger.log(Level.SEVERE, e.getLocalizedMessage());
+//			} catch (ParserConfigurationException e) {
+//				logger.log(Level.SEVERE, e.getLocalizedMessage());
+//			} catch (FactoryConfigurationError e) {
+//				logger.log(Level.SEVERE, e.getLocalizedMessage());
+//			} finally {
+//				dialog.cancel();
+//			}
 			try {
-				parser.createChannel(menuUrls.get(index));
+				channel = parser.createChannel(menuUrls.get(index));
 				handler.sendMessage(createMessage());
-			} catch (SAXException e) {
-				logger.log(Level.SEVERE, e.getLocalizedMessage());
 			} catch (IOException e) {
 				logger.log(Level.SEVERE, e.getLocalizedMessage());
-			} catch (ParserConfigurationException e) {
-				logger.log(Level.SEVERE, e.getLocalizedMessage());
-			} catch (FactoryConfigurationError e) {
+			} catch (XmlPullParserException e) {
 				logger.log(Level.SEVERE, e.getLocalizedMessage());
 			} finally {
 				dialog.cancel();
 			}
+			
 		}
 	};
 	
@@ -137,7 +150,7 @@ public class HeadLine extends Activity implements OnClickListener {
 	private final Handler handler = new Handler() {
 		@SuppressWarnings("unchecked")
 		public void handleMessage(Message msg) {
-			Channel channel = parser.getHandler().getChannel();
+//			Channel channel = parser.getHandler().getChannel();
 			createTitle(((Map<String, Object>)channel.getInside("title")).get("text").toString());
 			createTable(channel.getItems());
 		}
