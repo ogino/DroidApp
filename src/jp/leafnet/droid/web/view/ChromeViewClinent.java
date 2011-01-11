@@ -8,8 +8,8 @@ import android.webkit.WebViewClient;
 public class ChromeViewClinent extends WebViewClient {
 
 	private Activity context;
-	private final Integer MAX  = 10000;
-	private Integer progress;
+	private static final int MAX  = 10000;
+	private int progress;
 	
 	public ChromeViewClinent(final Activity context) {
 		super();
@@ -24,7 +24,7 @@ public class ChromeViewClinent extends WebViewClient {
 
 	public void onLoadResource(final WebView view, final String url) {
 		super.onLoadResource(view, url);
-		this.progress += MAX / 15;
+		this.progress += MAX / 20;
 		this.context.setProgress(this.progress);
 	}
 
