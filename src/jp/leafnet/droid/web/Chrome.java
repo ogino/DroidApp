@@ -24,10 +24,15 @@ public class Chrome extends Activity {
 		configureWindow();
 		this.createWebView();
 		this.setContentView(this.webView);
+		this.createTitle();
+	}
+
+	private void createTitle() {
+		 this.getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.webtitle);
 	}
 
 	private void configureWindow() {
-		this.requestWindowFeature(Window.FEATURE_PROGRESS);
+		this.requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 	}
 
 	private void createWebView() {
@@ -77,7 +82,12 @@ public class Chrome extends Activity {
 		super.onStop();
 		this.webView.clearHistory();
 		this.webView.clearCache(true);
-		this.webView.clearView();
+		this.webView.clearFormData();
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
 	}
 
 //	@Override

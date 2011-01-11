@@ -43,8 +43,9 @@ public class HeadLine extends Activity implements OnClickListener {
 	private RSSParser parser;
 	private Channel channel;
 	private Integer index;
-	private List<String> menuUrls;
-	private List<String> bodyUrls;
+	private List<String> headUrlList;
+	private List<String> linkUrlList;
+	private List<String> titleList;
 	private ProgressDialog dialog;
 	private Boolean loaded;
 	private Logger logger;
@@ -59,8 +60,9 @@ public class HeadLine extends Activity implements OnClickListener {
 
 	private void createBasis() {
 		this.parser = new RSSParser();
-		this.menuUrls = new ArrayList<String>();
-		this.bodyUrls =  new ArrayList<String>();
+		this.headUrlList = new ArrayList<String>();
+		this.linkUrlList =  new ArrayList<String>();
+		this.titleList = new ArrayList<String>();
 		this.createMenuScroll();
 		this.createDialog();
 		this.loaded = false;
@@ -77,7 +79,7 @@ public class HeadLine extends Activity implements OnClickListener {
 		Integer total = Integer.decode((String) bundle.getObject("news.site.total"));
 		for (Integer i = 0; i< total; i++) {
 			menuLayout.addView(createButton(bundle, i));
-			this.menuUrls.add(bundle.getString("news.site" + i + ".url"));
+			this.headUrlList.add(bundle.getString("news.site" + i + ".url"));
 		}
 		this.index = 0;
 	}
@@ -104,7 +106,8 @@ public class HeadLine extends Activity implements OnClickListener {
 	private void createHeadLines() {
 		this.createDialog();
 		this.dialog.show();
-		this.bodyUrls.clear();
+		this.titleList.clear();
+		this.linkUrlList.clear();
 		Thread thread = new Thread(runnable);
 		thread.start();
 	}
@@ -113,7 +116,7 @@ public class HeadLine extends Activity implements OnClickListener {
 		@Override
 		public void run() {
 			try {
-				channel = parser.createChannel(menuUrls.get(index));
+				channel = parser.createChannel(headUrlList.get(index));
 				handler.sendMessage(createMessage());
 			} catch (IOException e) {
 				logger.log(Level.SEVERE, e.getLocalizedMessage());
@@ -157,7 +160,8 @@ public class HeadLine extends Activity implements OnClickListener {
 		Integer id = ROWID_BEGIN + 1;
 		for (Item item : itemList) {
 			layout.addView(createTableRow(item, id++));
-			this.bodyUrls.add(((Map<String, Object>)item.getInside("link")).get("text").toString());
+			this.titleList.add(((Map<String, Object>)item.getInside("title")).get("text").toString());
+			this.linkUrlList.add(((Map<String, Object>)item.getInside("link")).get("text").toString());
 		}
 	}
 
@@ -230,7 +234,8 @@ public class HeadLine extends Activity implements OnClickListener {
 		if (id > ROWID_BEGIN) {
 			id = id % (ROWID_BEGIN + 1);
 			Intent intent = new Intent(this, Chrome.class);
-			intent.putExtra("URL", bodyUrls.get(id));
+			intent.putExtra("TITLE", titleList.get(id));
+			intent.putExtra("URL", linkUrlList.get(id));
 			this.startActivity(intent);
 		} else {
 			this.index = id;
