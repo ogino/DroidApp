@@ -27,8 +27,6 @@ public class Chrome extends Activity {
 
 	private void configureWindow() {
 		this.requestWindowFeature(Window.FEATURE_PROGRESS);
-//		this.requestWindowFeature(Window.FEATURE_CONTEXT_MENU);
-//		this.requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 	}
 
 	private void createWebView() {

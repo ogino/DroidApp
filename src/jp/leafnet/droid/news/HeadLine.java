@@ -26,6 +26,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -249,5 +251,24 @@ public class HeadLine extends Activity implements OnClickListener {
 			this.index = id;
 			this.createHeadLines();
 		}
+	}
+
+	private final static int FINISH_ID = 0;
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuItem fwdItem = menu.add(Menu.NONE, FINISH_ID, Menu.NONE, "終了");
+		fwdItem.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case FINISH_ID:
+			this.finish();
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }
