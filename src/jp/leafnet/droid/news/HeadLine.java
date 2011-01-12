@@ -66,7 +66,8 @@ public class HeadLine extends Activity implements OnClickListener {
 		this.createMenuScroll();
 		this.createDialog();
 		this.loaded = false;
-		this.logger =  Logger.getLogger(HeadLine.class.getName());
+		this.logger =  Logger.getLogger(HeadLine.class.getPackage().getName());
+		this.logger.setLevel(Level.INFO);
 	}
 	
 	private void createDialog() {
