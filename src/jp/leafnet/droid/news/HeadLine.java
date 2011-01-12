@@ -248,9 +248,9 @@ public class HeadLine extends Activity implements OnClickListener {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuItem finishItem = menu.add(Menu.NONE, FINISH_ID, Menu.NONE, "終了");
-		finishItem.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+		finishItem.setIcon(android.R.drawable.ic_lock_power_off);
 		MenuItem refreshIcon = menu.add(Menu.NONE, REFRESH_ID, Menu.NONE, "更新");
-		refreshIcon.setIcon(android.R.drawable.ic_popup_sync);
+		refreshIcon.setIcon(R.drawable.ic_menu_refresh);
 		MenuItem aboutItem = menu.add(Menu.NONE, ABOUT_ID, Menu.NONE, "アプリについて");
 		aboutItem.setIcon(android.R.drawable.ic_menu_info_details);
         return super.onCreateOptionsMenu(menu);
