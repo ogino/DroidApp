@@ -18,7 +18,9 @@ import jp.leafnet.droid.xml.rss.Item;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -45,7 +47,6 @@ public class HeadLine extends Activity implements OnClickListener {
 	private Integer index;
 	private List<String> headUrlList;
 	private List<String> linkUrlList;
-	private List<String> titleList;
 	private ProgressDialog dialog;
 	private Boolean loaded;
 	private Logger logger;
@@ -62,7 +63,6 @@ public class HeadLine extends Activity implements OnClickListener {
 		this.parser = new RSSParser();
 		this.headUrlList = new ArrayList<String>();
 		this.linkUrlList =  new ArrayList<String>();
-		this.titleList = new ArrayList<String>();
 		this.createMenuScroll();
 		this.createDialog();
 		this.loaded = false;
@@ -106,7 +106,6 @@ public class HeadLine extends Activity implements OnClickListener {
 	private void createHeadLines() {
 		this.createDialog();
 		this.dialog.show();
-		this.titleList.clear();
 		this.linkUrlList.clear();
 		Thread thread = new Thread(runnable);
 		thread.start();
@@ -160,7 +159,6 @@ public class HeadLine extends Activity implements OnClickListener {
 		Integer id = ROWID_BEGIN + 1;
 		for (Item item : itemList) {
 			layout.addView(createTableRow(item, id++));
-			this.titleList.add(((Map<String, Object>)item.getInside("title")).get("text").toString());
 			this.linkUrlList.add(((Map<String, Object>)item.getInside("link")).get("text").toString());
 		}
 	}
@@ -234,7 +232,6 @@ public class HeadLine extends Activity implements OnClickListener {
 		if (id > ROWID_BEGIN) {
 			id = id % (ROWID_BEGIN + 1);
 			Intent intent = new Intent(this, Chrome.class);
-			intent.putExtra("TITLE", titleList.get(id));
 			intent.putExtra("URL", linkUrlList.get(id));
 			this.startActivity(intent);
 		} else {
@@ -244,11 +241,17 @@ public class HeadLine extends Activity implements OnClickListener {
 	}
 
 	private final static int FINISH_ID = 0;
+	private final static int REFRESH_ID = 1;
+	private final static int ABOUT_ID = 2;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuItem fwdItem = menu.add(Menu.NONE, FINISH_ID, Menu.NONE, "終了");
-		fwdItem.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+		MenuItem finishItem = menu.add(Menu.NONE, FINISH_ID, Menu.NONE, "終了");
+		finishItem.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+		MenuItem refreshIcon = menu.add(Menu.NONE, REFRESH_ID, Menu.NONE, "更新");
+		refreshIcon.setIcon(android.R.drawable.ic_popup_sync);
+		MenuItem aboutItem = menu.add(Menu.NONE, ABOUT_ID, Menu.NONE, "アプリについて");
+		aboutItem.setIcon(android.R.drawable.ic_menu_info_details);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -258,7 +261,28 @@ public class HeadLine extends Activity implements OnClickListener {
 		case FINISH_ID:
 			this.finish();
 			break;
+		case REFRESH_ID:
+			this.createHeadLines();
+			break;
+		case ABOUT_ID:
+			this.showAbout();
+			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void showAbout() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("" +
+				"このアプリケーションについて");
+		builder.setMessage("Copyright (C) 2010 LeafNet Co.,Ltd. All Rights Reserved.");
+		builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				setResult(RESULT_OK);
+			}
+		});
+		builder.setCancelable(true);
+		builder.create().show();
 	}
 }
