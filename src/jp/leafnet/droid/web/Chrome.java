@@ -2,8 +2,11 @@ package jp.leafnet.droid.web;
 
 import java.lang.reflect.Field;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import jp.leafnet.droid.R;
+import jp.leafnet.droid.news.HeadLine;
 import jp.leafnet.droid.web.view.ChromeViewClinent;
 import android.app.Activity;
 import android.os.Bundle;
@@ -17,11 +20,13 @@ import android.webkit.WebView;
 public class Chrome extends Activity {
 
 	private WebView webView;
+	private Logger logger = Logger.getLogger(HeadLine.class.getPackage().getName());
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		configureWindow();
+		this.logger.setLevel(Level.INFO);
 		this.createWebView();
 		this.setContentView(this.webView);
 		this.createTitle();
@@ -38,6 +43,8 @@ public class Chrome extends Activity {
 	private void createWebView() {
 		this.webView = new WebView(this);
 		this.webView.setAlwaysDrawnWithCacheEnabled(false);
+		this.webView.setFocusable(true);
+		this.webView.setFocusableInTouchMode(true);
 		this.webView.loadUrl(getIntent().getStringExtra("URL"));
 		this.webView.setWebViewClient(new ChromeViewClinent(this));
 		this.createWebSettings();
@@ -47,14 +54,15 @@ public class Chrome extends Activity {
 		WebSettings settings = this.webView.getSettings();
 		settings.setBuiltInZoomControls(true);
 		settings.setSupportZoom(true);
+		settings.setUseWideViewPort(true);
 		settings.setUserAgentString(this.createUserAgent());
+		settings.setJavaScriptEnabled(true);
 		try {
-		    Field nameField = settings.getClass().getDeclaredField("mBuiltInZoomControls");
-		    nameField.setAccessible(true);
-		    nameField.set(settings, false);
+			Field nameField = settings.getClass().getDeclaredField("mBuiltInZoomControls");
+			nameField.setAccessible(true);
+			nameField.set(settings, false);
 		} catch (Exception e) {
-		    e.printStackTrace();
-		    settings.setBuiltInZoomControls(false);
+			this.logger.log(Level.SEVERE, e.getLocalizedMessage());
 		}
 	}
 
@@ -89,11 +97,6 @@ public class Chrome extends Activity {
 	protected void onDestroy() {
 		super.onDestroy();
 	}
-
-//	@Override
-//	public void onBackPressed() {
-//		super.onBackPressed();
-//	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
