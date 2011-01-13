@@ -48,11 +48,11 @@ public class Chrome extends Activity {
 		settings.setBuiltInZoomControls(true);
 		settings.setSupportZoom(true);
 		settings.setUserAgentString(this.createUserAgent());
-		try{
+		try {
 		    Field nameField = settings.getClass().getDeclaredField("mBuiltInZoomControls");
 		    nameField.setAccessible(true);
 		    nameField.set(settings, false);
-		}catch(Exception e){
+		} catch (Exception e) {
 		    e.printStackTrace();
 		    settings.setBuiltInZoomControls(false);
 		}
