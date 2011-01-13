@@ -1,6 +1,5 @@
 package jp.leafnet.droid.news;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -14,9 +13,6 @@ import jp.leafnet.droid.web.Chrome;
 import jp.leafnet.droid.xml.RSSParser;
 import jp.leafnet.droid.xml.rss.Channel;
 import jp.leafnet.droid.xml.rss.Item;
-
-import org.xmlpull.v1.XmlPullParserException;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -49,7 +45,7 @@ public class HeadLine extends Activity implements OnClickListener {
 	private List<String> linkUrlList;
 	private ProgressDialog dialog;
 	private Boolean loaded;
-	private Logger logger;
+	private Logger logger = Logger.getLogger(HeadLine.class.getPackage().getName());
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -66,7 +62,6 @@ public class HeadLine extends Activity implements OnClickListener {
 		this.createMenuScroll();
 		this.createDialog();
 		this.loaded = false;
-		this.logger =  Logger.getLogger(HeadLine.class.getPackage().getName());
 		this.logger.setLevel(Level.INFO);
 	}
 	
@@ -114,13 +109,11 @@ public class HeadLine extends Activity implements OnClickListener {
 
 	private Runnable runnable = new Runnable() {
 		@Override
-		public void run() {
+		synchronized public void run() {
 			try {
 				channel = parser.createChannel(headUrlList.get(index));
 				handler.sendMessage(createMessage());
-			} catch (IOException e) {
-				logger.log(Level.SEVERE, e.getLocalizedMessage());
-			} catch (XmlPullParserException e) {
+			} catch (Exception e) {
 				logger.log(Level.SEVERE, e.getLocalizedMessage());
 			} finally {
 				dialog.dismiss();
@@ -138,11 +131,9 @@ public class HeadLine extends Activity implements OnClickListener {
 
 	private final Handler handler = new Handler() {
 		@SuppressWarnings("unchecked")
-		public void handleMessage(Message msg) {
-			synchronized (channel) {
-				createTitle(((Map<String, Object>)channel.getInside("title")).get("text").toString());
-				createTable(channel.getItems());
-			}
+		synchronized public void handleMessage(Message msg) {
+			createTitle(((Map<String, Object>)channel.getInside("title")).get("text").toString());
+			createTable(channel.getItems());
 		}
 	};
 	
