@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">こんにちは、ドロイドです!</string>
+    <string name="app_name">ドロイドくんのお遊び</string>
+    <string name="exit">終了</string>
+    <string name="refresh">更新</string>
+    <string name="about">アプリについて</string>
+    <string name="back">戻る</string>
+    <string name="forward">進む</string>
+    <string name="about_title">このアプリケーションについて</string>
+    <string name="loading">更新してます...</string>
+</resources>

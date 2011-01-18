@@ -13,7 +13,8 @@
 </activity>
 <activity android:name=".web.Chrome" android:configChanges="orientation"></activity>
 <activity android:name=".map.GoogleMap" android:configChanges="orientation"></activity>
-<activity android:name=".news.HeadLine" android:configChanges="orientation"></activity><uses-library android:name="com.google.android.maps"></uses-library>
+<activity android:name=".news.HeadLine" android:configChanges="orientation"></activity><activity android:name=".news.conf.UserPrefActivity"></activity><uses-library android:name="com.google.android.maps"></uses-library>
+
 
 
 </application>

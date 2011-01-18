@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, DroidActivity!</string>
+    <string name="hello">Hello, Droid activity!</string>
     <string name="app_name">DroidApp</string>
+    <string name="exit">Exit</string>
+    <string name="refresh">Refresh</string>
+    <string name="about">About</string>
+    <string name="back">Back</string>
+    <string name="forward">Forward</string>
+    <string name="about_title">About this application...</string>
+    <string name="loading">Now Loading...</string>
 </resources>

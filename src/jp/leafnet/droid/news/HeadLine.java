@@ -66,7 +66,7 @@ public class HeadLine extends Activity implements OnClickListener {
 	}
 	
 	private void createDialog() {
-		this.dialog = ProgressDialogFactory.getSpinnerInstance(this, "Now Loading...");
+		this.dialog = ProgressDialogFactory.getSpinnerInstance(this, this.getString(R.string.loading));
 	}
 
 	private void createMenuScroll() {
@@ -235,14 +235,15 @@ public class HeadLine extends Activity implements OnClickListener {
 	private final static int FINISH_ID = 0;
 	private final static int REFRESH_ID = 1;
 	private final static int ABOUT_ID = 2;
+	private final static int CONF_ID = 3;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuItem finishItem = menu.add(Menu.NONE, FINISH_ID, Menu.NONE, "終了");
+		MenuItem finishItem = menu.add(Menu.NONE, FINISH_ID, Menu.NONE, R.string.exit);
 		finishItem.setIcon(android.R.drawable.ic_lock_power_off);
-		MenuItem refreshIcon = menu.add(Menu.NONE, REFRESH_ID, Menu.NONE, "更新");
+		MenuItem refreshIcon = menu.add(Menu.NONE, REFRESH_ID, Menu.NONE, R.string.refresh);
 		refreshIcon.setIcon(R.drawable.ic_menu_refresh);
-		MenuItem aboutItem = menu.add(Menu.NONE, ABOUT_ID, Menu.NONE, "アプリについて");
+		MenuItem aboutItem = menu.add(Menu.NONE, ABOUT_ID, Menu.NONE, R.string.about);
 		aboutItem.setIcon(android.R.drawable.ic_menu_info_details);
         return super.onCreateOptionsMenu(menu);
     }
@@ -259,14 +260,15 @@ public class HeadLine extends Activity implements OnClickListener {
 		case ABOUT_ID:
 			this.showAbout();
 			break;
+		case CONF_ID:
+			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
 	private void showAbout() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("" +
-				"このアプリケーションについて");
+		builder.setTitle(R.string.about_title);
 		builder.setMessage("Copyright (C) 2010 LeafNet Co.,Ltd. All Rights Reserved.");
 		builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
 			@Override

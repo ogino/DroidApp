@@ -105,11 +105,13 @@ public class Chrome extends Activity {
 
 	private final static int BACK_ID = 0;
 	private final static int FWD_ID = 1;
+	private final static int INSTA_ID = 2;
+	private final static int CONF_ID = 3;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuItem backItem = menu.add(Menu.NONE, BACK_ID, Menu.NONE, "戻る");
-		MenuItem fwdItem = menu.add(Menu.NONE, FWD_ID, Menu.NONE, "進む");
+		MenuItem backItem = menu.add(Menu.NONE, BACK_ID, Menu.NONE, R.string.back);
+		MenuItem fwdItem = menu.add(Menu.NONE, FWD_ID, Menu.NONE, R.string.forward);
 		backItem.setIcon(R.drawable.ic_menu_back);
 		fwdItem.setIcon(R.drawable.ic_menu_forward);
         return super.onCreateOptionsMenu(menu);
@@ -123,6 +125,10 @@ public class Chrome extends Activity {
 			break;
 		case FWD_ID:
 			this.webView.goForward();
+			break;
+		case INSTA_ID:
+			break;
+		case CONF_ID:
 			break;
 		}
 		return super.onOptionsItemSelected(item);

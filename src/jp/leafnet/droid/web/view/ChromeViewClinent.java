@@ -24,7 +24,7 @@ public class ChromeViewClinent extends WebViewClient {
 		super.onPageStarted(view, url, favicon);
 		TextView titleView = (TextView)this.context.findViewById(R.id.WebViewTitle);
 		titleView.setBackgroundColor(Color.argb(0, 0, 0, 0));
-		titleView.setText("Now Loading...");
+		titleView.setText(this.context.getString(R.string.loading));
 		ProgressBar progressBar = (ProgressBar)this.context.findViewById(R.id.WebViewProgress);
 		progressBar.setMax(MAX);
 		progressBar.setVisibility(ProgressBar.VISIBLE);
