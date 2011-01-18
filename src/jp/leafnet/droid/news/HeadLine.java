@@ -109,7 +109,7 @@ public class HeadLine extends Activity implements OnClickListener {
 
 	private Runnable runnable = new Runnable() {
 		@Override
-		synchronized public void run() {
+		public synchronized void run() {
 			try {
 				channel = parser.createChannel(headUrlList.get(index));
 				handler.sendMessage(createMessage());
@@ -131,9 +131,11 @@ public class HeadLine extends Activity implements OnClickListener {
 
 	private final Handler handler = new Handler() {
 		@SuppressWarnings("unchecked")
-		synchronized public void handleMessage(Message msg) {
-			createTitle(((Map<String, Object>)channel.getInside("title")).get("text").toString());
-			createTable(channel.getItems());
+		public void handleMessage(Message msg) {
+			synchronized (channel) {
+				createTitle(((Map<String, Object>)channel.getInside("title")).get("text").toString());
+				createTable(channel.getItems());
+			}
 		}
 	};
 	
