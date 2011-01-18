@@ -7,6 +7,15 @@
     <string name="about">About</string>
     <string name="back">Back</string>
     <string name="forward">Forward</string>
+    <string name="preference">Preference</string>
+    <string name="instapaper">Register to Instapaper</string>
     <string name="about_title">About this application...</string>
     <string name="loading">Now Loading...</string>
+    <string name="insta_category">Instapaper</string>
+    <string name="insta_user_title">Instapaper\'s Username</string>
+    <string name="insta_pass_title">Instapaper\'s Password</string>
+    <string name="insta_user_summary">Enter Instapaper\'s Username</string>
+    <string name="insta_pass_summary">Enter Instapaper\'s Password</string>
+    <string name="insta_username">insta_username</string>
+    <string name="insta_password">insta_password</string>
 </resources>

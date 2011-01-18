@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import jp.leafnet.droid.R;
 import jp.leafnet.droid.dialog.factory.ProgressDialogFactory;
+import jp.leafnet.droid.news.conf.UserPrefActivity;
 import jp.leafnet.droid.web.Chrome;
 import jp.leafnet.droid.xml.RSSParser;
 import jp.leafnet.droid.xml.rss.Channel;
@@ -237,7 +238,7 @@ public class HeadLine extends Activity implements OnClickListener {
 	private final static int FINISH_ID = 0;
 	private final static int REFRESH_ID = 1;
 	private final static int ABOUT_ID = 2;
-	private final static int CONF_ID = 3;
+	private final static int PREP_ID = 3;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -245,6 +246,8 @@ public class HeadLine extends Activity implements OnClickListener {
 		finishItem.setIcon(android.R.drawable.ic_lock_power_off);
 		MenuItem refreshIcon = menu.add(Menu.NONE, REFRESH_ID, Menu.NONE, R.string.refresh);
 		refreshIcon.setIcon(R.drawable.ic_menu_refresh);
+		MenuItem prepItem = menu.add(Menu.NONE, PREP_ID, Menu.NONE, R.string.preference);
+		prepItem.setIcon(android.R.drawable.ic_menu_preferences);
 		MenuItem aboutItem = menu.add(Menu.NONE, ABOUT_ID, Menu.NONE, R.string.about);
 		aboutItem.setIcon(android.R.drawable.ic_menu_info_details);
         return super.onCreateOptionsMenu(menu);
@@ -262,7 +265,8 @@ public class HeadLine extends Activity implements OnClickListener {
 		case ABOUT_ID:
 			this.showAbout();
 			break;
-		case CONF_ID:
+		case PREP_ID:
+			this.showPreference();
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -280,5 +284,10 @@ public class HeadLine extends Activity implements OnClickListener {
 		});
 		builder.setCancelable(true);
 		builder.create().show();
+	}
+
+	private void showPreference() {
+		Intent intent = new Intent(this, UserPrefActivity.class);
+		this.startActivity(intent);
 	}
 }

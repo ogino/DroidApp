@@ -7,6 +7,13 @@
     <string name="about">Au sujet de ceci</string>
     <string name="back">Retournez</string>
     <string name="forward">Aller de l\'avant</string>
+    <string name="preference">Préférence</string>
+    <string name="instapaper">Registre à Instapaper</string>
     <string name="about_title">Au sujet de cette application...</string>
     <string name="loading">Maintenant chargeant...</string>
+    <string name="insta_category">Instapaper</string>
+    <string name="insta_user_title">Utilisateur final d\'Instapaper</string>
+    <string name="insta_pass_title">Passe d\'Instapaper</string>
+    <string name="insta_user_summary">Entre Utilisateur final d\'Instapaper</string>
+    <string name="insta_pass_summary">Entre Passe d\'Instapaper</string>
 </resources>

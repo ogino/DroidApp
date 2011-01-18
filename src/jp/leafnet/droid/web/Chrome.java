@@ -7,9 +7,24 @@ import java.util.logging.Logger;
 
 import jp.leafnet.droid.R;
 import jp.leafnet.droid.news.HeadLine;
+import jp.leafnet.droid.news.conf.UserPrefActivity;
 import jp.leafnet.droid.web.view.ChromeViewClinent;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -106,16 +121,23 @@ public class Chrome extends Activity {
 	private final static int BACK_ID = 0;
 	private final static int FWD_ID = 1;
 	private final static int INSTA_ID = 2;
-	private final static int CONF_ID = 3;
+	private final static int PREP_ID = 3;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuItem backItem = menu.add(Menu.NONE, BACK_ID, Menu.NONE, R.string.back);
 		MenuItem fwdItem = menu.add(Menu.NONE, FWD_ID, Menu.NONE, R.string.forward);
+		MenuItem instaItem = menu.add(Menu.NONE, INSTA_ID, Menu.NONE, R.string.instapaper);
+		MenuItem prepItem = menu.add(Menu.NONE, PREP_ID, Menu.NONE, R.string.preference);
 		backItem.setIcon(R.drawable.ic_menu_back);
 		fwdItem.setIcon(R.drawable.ic_menu_forward);
+		instaItem.setIcon(android.R.drawable.ic_menu_myplaces);
+		prepItem.setIcon(android.R.drawable.ic_menu_preferences);
         return super.onCreateOptionsMenu(menu);
     }
+
+	private final static String NO_USERNAME = "Username not found...";
+	private final static String NO_PASSWORD = "Password not found...";
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -127,10 +149,57 @@ public class Chrome extends Activity {
 			this.webView.goForward();
 			break;
 		case INSTA_ID:
+			this.sendInstapaper();
 			break;
-		case CONF_ID:
+		case PREP_ID:
+			this.showPreference();
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void sendInstapaper() {
+		SharedPreferences userPreference = PreferenceManager.getDefaultSharedPreferences(this);
+		String username = userPreference.getString(this.getResources().getString(R.string.insta_username), NO_USERNAME);
+		String password = userPreference.getString(this.getResources().getString(R.string.insta_password), NO_PASSWORD);
+		HttpClient httpClient = new DefaultHttpClient();
+		HttpPost httpPost = new HttpPost("https://www.instapaper.com/api/add");
+		String title = "Success:";
+		String message = "Registered it on your account!";
+		MultipartEntity entity = new MultipartEntity();
+		try {
+			entity.addPart("username", new StringBody(username));
+			entity.addPart("password", new StringBody(password));
+			entity.addPart("url", new StringBody(this.webView.getUrl()));
+			httpPost.setEntity(entity);
+			HttpResponse httpResponse = httpClient.execute(httpPost);
+			Integer statusCode = httpResponse.getStatusLine().getStatusCode();
+			if (statusCode != HttpStatus.SC_CREATED) {
+				title = "Error";
+				message = "Error: not registered. code is " + statusCode.toString();
+			}
+			this.showDialog(title, message);
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, e.getLocalizedMessage());
+		}
+	}
+	
+	private void showDialog(final String title, final String message) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(title);
+		builder.setMessage(message);
+		builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				setResult(RESULT_OK);
+			}
+		});
+		builder.setCancelable(true);
+		builder.create().show();
+	}
+
+	private void showPreference() {
+		Intent intent = new Intent(this, UserPrefActivity.class);
+		this.startActivity(intent);
 	}
 }

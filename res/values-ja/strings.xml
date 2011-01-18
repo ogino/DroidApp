@@ -7,6 +7,13 @@
     <string name="about">アプリについて</string>
     <string name="back">戻る</string>
     <string name="forward">進む</string>
+    <string name="preference">設定</string>
+    <string name="instapaper">Instapaperに登録する</string>
     <string name="about_title">このアプリケーションについて</string>
-    <string name="loading">更新してます...</string>
+    <string name="loading">読み込んでいます...</string>
+    <string name="insta_category">Instapaper</string>
+    <string name="insta_user_title">Instapaperのユーザ名</string>
+    <string name="insta_pass_title">Instapaperのパスワード</string>
+    <string name="insta_user_summary">Instapaperのユーザ名を入力して下さい</string>
+    <string name="insta_pass_summary">Instapaperのパスワードを入力して下さい</string>
 </resources>
