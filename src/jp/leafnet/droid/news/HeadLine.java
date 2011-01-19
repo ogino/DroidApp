@@ -104,7 +104,7 @@ public class HeadLine extends Activity implements OnClickListener {
 		this.createDialog();
 		this.dialog.show();
 		this.linkUrlList.clear();
-		Thread thread = new Thread(runnable);
+		Thread thread = new Thread(this.runnable);
 		thread.start();
 	}
 
