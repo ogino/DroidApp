@@ -1,30 +1,25 @@
 package jp.leafnet.droid.web;
 
 import java.lang.reflect.Field;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import jp.leafnet.droid.R;
+import jp.leafnet.droid.dialog.factory.ProgressDialogFactory;
+import jp.leafnet.droid.instapaper.Instapaper;
 import jp.leafnet.droid.news.HeadLine;
 import jp.leafnet.droid.news.conf.UserPrefActivity;
 import jp.leafnet.droid.web.view.ChromeViewClinent;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.StringBody;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.os.Handler;
+import android.os.Message;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -136,9 +131,6 @@ public class Chrome extends Activity {
         return super.onCreateOptionsMenu(menu);
     }
 
-	private final static String NO_USERNAME = "Username not found...";
-	private final static String NO_PASSWORD = "Password not found...";
-
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -158,30 +150,24 @@ public class Chrome extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	private Instapaper instapaper;
+	private ProgressDialog dialog;
+
 	private void sendInstapaper() {
-		SharedPreferences userPreference = PreferenceManager.getDefaultSharedPreferences(this);
-		String username = userPreference.getString(this.getResources().getString(R.string.insta_username), NO_USERNAME);
-		String password = userPreference.getString(this.getResources().getString(R.string.insta_password), NO_PASSWORD);
-		HttpClient httpClient = new DefaultHttpClient();
-		HttpPost httpPost = new HttpPost("https://www.instapaper.com/api/add");
-		String title = "Success:";
-		String message = "Registered it on your account!";
-		MultipartEntity entity = new MultipartEntity();
-		try {
-			entity.addPart("username", new StringBody(username));
-			entity.addPart("password", new StringBody(password));
-			entity.addPart("url", new StringBody(this.webView.getUrl()));
-			httpPost.setEntity(entity);
-			HttpResponse httpResponse = httpClient.execute(httpPost);
-			Integer statusCode = httpResponse.getStatusLine().getStatusCode();
-			if (statusCode != HttpStatus.SC_CREATED) {
-				title = "Error";
-				message = "Error: not registered. code is " + statusCode.toString();
+		this.dialog = ProgressDialogFactory.getSpinnerInstance(this, this.getString(R.string.loading));
+		Handler handler = new Handler() {
+			public void handleMessage(Message msg) {
+				synchronized (instapaper) {
+					Map<String, String> resultMap = instapaper.getResultMap();
+					showDialog(resultMap.get("title"), resultMap.get("message"));
+					dialog.dismiss();
+				}
 			}
-			this.showDialog(title, message);
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getLocalizedMessage());
-		}
+		};
+		this.dialog.show();
+		this.instapaper = new Instapaper(this, this.webView.getUrl(), handler);
+		Thread thread = new Thread(this.instapaper);
+		thread.start();
 	}
 	
 	private void showDialog(final String title, final String message) {

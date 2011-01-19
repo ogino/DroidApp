@@ -18,4 +18,8 @@
     <string name="insta_pass_summary">Enter Instapaper\'s Password</string>
     <string name="insta_username">insta_username</string>
     <string name="insta_password">insta_password</string>
+    <string name="error_title">Error</string>
+    <string name="insta_err_message">Your request is rejected.\nStatus code is %d.</string>
+    <string name="success_title">Success</string>
+    <string name="insta_suc_message">Your request is accepted.\nStatus code is %d.</string>
 </resources>

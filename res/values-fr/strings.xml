@@ -16,4 +16,8 @@
     <string name="insta_pass_title">Passe d\'Instapaper</string>
     <string name="insta_user_summary">Entre Utilisateur final d\'Instapaper</string>
     <string name="insta_pass_summary">Entre Passe d\'Instapaper</string>
+    <string name="error_title">Erreur</string>
+    <string name="insta_err_message">Votre demande est rejetée.\nLe code statut est %d.</string>
+    <string name="success_title">Succès</string>
+    <string name="insta_suc_message">Votre demande est acceptée.\nLe code statut est %d.</string>
 </resources>

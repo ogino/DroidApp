@@ -16,4 +16,8 @@
     <string name="insta_pass_title">Instapaperのパスワード</string>
     <string name="insta_user_summary">Instapaperのユーザ名を入力して下さい</string>
     <string name="insta_pass_summary">Instapaperのパスワードを入力して下さい</string>
+    <string name="error_title">エラー</string>
+    <string name="insta_err_message">登録に失敗しました。\nステータスコードは %d。</string>
+    <string name="success_title">成功</string>
+    <string name="insta_suc_message">登録に成功しました。\nステータスコードは %d。</string>
 </resources>
