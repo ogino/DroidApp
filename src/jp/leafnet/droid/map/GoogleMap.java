@@ -73,7 +73,7 @@ public class GoogleMap extends MapActivity implements LocationListener, GpsStatu
 	}
 
 	private PinOverlay createPinOverlay() {
-		Drawable pin = getResources().getDrawable(R.drawable.pin);
+		Drawable pin = this.getResources().getDrawable(R.drawable.pin);
 		return new PinOverlay(pin);
 	}
 
