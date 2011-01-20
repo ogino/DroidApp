@@ -11,6 +11,7 @@ import jp.leafnet.droid.dialog.factory.ProgressDialogFactory;
 import jp.leafnet.droid.instapaper.Instapaper;
 import jp.leafnet.droid.news.HeadLine;
 import jp.leafnet.droid.news.conf.UserPrefActivity;
+import jp.leafnet.droid.twitter.Twitter;
 import jp.leafnet.droid.web.view.ChromeViewClinent;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -24,6 +25,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.webkit.CookieManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
@@ -101,6 +103,9 @@ public class Chrome extends Activity {
 		this.webView.clearHistory();
 		this.webView.clearCache(true);
 		this.webView.clearFormData();
+		this.webView.clearSslPreferences();
+		CookieManager manager = CookieManager.getInstance();
+		manager.removeAllCookie();
 	}
 
 	@Override
@@ -116,17 +121,20 @@ public class Chrome extends Activity {
 	private final static int BACK_ID = 0;
 	private final static int FWD_ID = 1;
 	private final static int INSTA_ID = 2;
-	private final static int PREP_ID = 3;
+	private final static int TWEET_ID = 3;
+	private final static int PREP_ID = 4;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuItem backItem = menu.add(Menu.NONE, BACK_ID, Menu.NONE, R.string.back);
 		MenuItem fwdItem = menu.add(Menu.NONE, FWD_ID, Menu.NONE, R.string.forward);
 		MenuItem instaItem = menu.add(Menu.NONE, INSTA_ID, Menu.NONE, R.string.instapaper);
+		MenuItem tweetItem = menu.add(Menu.NONE, TWEET_ID, Menu.NONE, R.string.twitter);
 		MenuItem prepItem = menu.add(Menu.NONE, PREP_ID, Menu.NONE, R.string.preference);
 		backItem.setIcon(R.drawable.ic_menu_back);
 		fwdItem.setIcon(R.drawable.ic_menu_forward);
-		instaItem.setIcon(android.R.drawable.ic_menu_myplaces);
+		instaItem.setIcon(android.R.drawable.ic_menu_save);
+		tweetItem.setIcon(android.R.drawable.ic_menu_send);
 		prepItem.setIcon(android.R.drawable.ic_menu_preferences);
         return super.onCreateOptionsMenu(menu);
     }
@@ -143,11 +151,20 @@ public class Chrome extends Activity {
 		case INSTA_ID:
 			this.sendInstapaper();
 			break;
+		case TWEET_ID:
+			this.webView.loadUrl(createTweetUrl());
+			break;
 		case PREP_ID:
 			this.showPreference();
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private static final String HASH_TAG = "#leafnewsreader";
+	private String createTweetUrl() {
+		Twitter twitter = new Twitter(this.webView.getTitle(), this.webView.getUrl(), HASH_TAG);
+		return twitter.createTweetUrl();
 	}
 
 	private Instapaper instapaper;

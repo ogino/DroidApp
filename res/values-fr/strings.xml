@@ -2,20 +2,21 @@
 <resources>
     <string name="hello">Bonjour, activité de Droid!</string>
     <string name="app_name">DroidApp</string>
-    <string name="exit">Sortie</string>
+    <string name="exit">Sortez</string>
     <string name="refresh">Régénérez</string>
     <string name="about">Au sujet de ceci</string>
     <string name="back">Retournez</string>
-    <string name="forward">Aller de l\'avant</string>
+    <string name="forward">Allez de l\'avant</string>
     <string name="preference">Préférence</string>
-    <string name="instapaper">Registre à Instapaper</string>
+    <string name="instapaper">Registrez à Instapaper</string>
+    <string name="twitter">Gazouillez au Twitter</string>
     <string name="about_title">Au sujet de cette application...</string>
     <string name="loading">Maintenant chargeant...</string>
     <string name="insta_category">Instapaper</string>
     <string name="insta_user_title">Utilisateur final d\'Instapaper</string>
     <string name="insta_pass_title">Passe d\'Instapaper</string>
-    <string name="insta_user_summary">Entre Utilisateur final d\'Instapaper</string>
-    <string name="insta_pass_summary">Entre Passe d\'Instapaper</string>
+    <string name="insta_user_summary">Entrez Utilisateur final d\'Instapaper</string>
+    <string name="insta_pass_summary">Entrez Passe d\'Instapaper</string>
     <string name="error_title">Erreur</string>
     <string name="insta_err_message">Votre demande est rejetée.\nLe code statut est %d.</string>
     <string name="success_title">Succès</string>

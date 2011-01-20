@@ -2,13 +2,13 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 <PreferenceCategory android:title="@string/insta_category">
 <EditTextPreference
-    android:key="insta_username"
+    android:key="@string/insta_username"
     android:title="@string/insta_user_title"
     android:summary="@string/insta_user_summary"
     android:dialogTitle="@string/insta_user_summary"
     />
 <EditTextPreference
-    android:key="insta_password"
+    android:key="@string/insta_raw_password"
     android:title="@string/insta_pass_title"
     android:summary="@string/insta_pass_summary"
     android:dialogTitle="@string/insta_pass_summary"

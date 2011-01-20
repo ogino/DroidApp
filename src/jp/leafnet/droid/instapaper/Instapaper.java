@@ -1,11 +1,15 @@
 package jp.leafnet.droid.instapaper;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.crypto.spec.SecretKeySpec;
+
 import jp.leafnet.droid.R;
+import jp.leafnet.droid.util.CryptoUtil;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -43,26 +47,22 @@ public class Instapaper implements Runnable {
 
 	private void requestInstapaper() {
 		this.resultMap.clear();
-		SharedPreferences userPreference = PreferenceManager.getDefaultSharedPreferences(this.context);
-		String username = userPreference.getString(this.context.getResources().getString(R.string.insta_username), NO_USERNAME);
-		String password = userPreference.getString(this.context.getResources().getString(R.string.insta_password), NO_PASSWORD);
+		SharedPreferences userPreferences = PreferenceManager.getDefaultSharedPreferences(this.context);
+		String username = userPreferences.getString(this.context.getString(R.string.insta_username), NO_USERNAME);
+		String password = this.createPassword(userPreferences);
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpPost httpPost = new HttpPost("https://www.instapaper.com/api/add");
-		String title = this.context.getResources().getString(R.string.success_title);
+		String title = this.context.getString(R.string.success_title);
 		String message = "";
-		MultipartEntity entity = new MultipartEntity();
 		try {
-			entity.addPart("username", new StringBody(username));
-			entity.addPart("password", new StringBody(password));
-			entity.addPart("url", new StringBody(this.url));
-			httpPost.setEntity(entity);
+			httpPost.setEntity(createEntity(username, password));
 			HttpResponse httpResponse = httpClient.execute(httpPost);
 			Integer statusCode = httpResponse.getStatusLine().getStatusCode();
 			if (statusCode != HttpStatus.SC_CREATED) {
-				title = this.context.getResources().getString(R.string.error_title);
-				message = String.format(this.context.getResources().getString(R.string.insta_err_message), statusCode);
+				title = this.context.getString(R.string.error_title);
+				message = String.format(this.context.getString(R.string.insta_err_message), statusCode);
 			} else {
-				message = String.format(this.context.getResources().getString(R.string.insta_suc_message), statusCode);
+				message = String.format(this.context.getString(R.string.insta_suc_message), statusCode);
 			}
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getLocalizedMessage());
@@ -70,6 +70,22 @@ public class Instapaper implements Runnable {
 			this.resultMap.put("title", title);
 			this.resultMap.put("message", message);
 		}
+	}
+	
+	private String createPassword(final SharedPreferences userPreferences) {
+		String encodePass = userPreferences.getString(this.context.getString(R.string.insta_password), NO_PASSWORD);
+		if (encodePass.equals(NO_PASSWORD)) return "";
+		SecretKeySpec keySpec = CryptoUtil.createKeySpec(context);
+		return CryptoUtil.decodeString(encodePass, keySpec);
+	}
+
+	private MultipartEntity createEntity(final String username, final String password)
+			throws UnsupportedEncodingException {
+		MultipartEntity entity = new MultipartEntity();
+		entity.addPart("username", new StringBody(username));
+		entity.addPart("password", new StringBody(password));
+		entity.addPart("url", new StringBody(this.url));
+		return entity;
 	}
 
 	@Override

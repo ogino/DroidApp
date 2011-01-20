@@ -3,6 +3,8 @@ package jp.leafnet.droid.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import jp.leafnet.droid.base64.Base64;
+
 public class StringUtil {
 
 	public static boolean isEmpty(final String str) {
@@ -33,4 +35,11 @@ public class StringUtil {
 		return modified.replace("&nbsp;", " ").replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&").replace("&quot;", "\"").replace("\n", "");
 	}
 
+	public static String encodeBase64(byte[] data) {
+	  	return Base64.encodeBytes(data);
+	}
+
+	public static byte[] decodeBase64(String base64) throws Exception {
+	    return Base64.decode(base64);
+	}
 }
