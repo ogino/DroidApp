@@ -128,11 +128,11 @@ public class Chrome extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuItem prepItem = menu.add(Menu.NONE, PREP_ID, Menu.NONE, R.string.preference);
 		MenuItem backItem = menu.add(Menu.NONE, BACK_ID, Menu.NONE, R.string.back);
 		MenuItem fwdItem = menu.add(Menu.NONE, FWD_ID, Menu.NONE, R.string.forward);
 		MenuItem instaItem = menu.add(Menu.NONE, INSTA_ID, Menu.NONE, R.string.instapaper);
 		MenuItem tweetItem = menu.add(Menu.NONE, TWEET_ID, Menu.NONE, R.string.twitter);
-		MenuItem prepItem = menu.add(Menu.NONE, PREP_ID, Menu.NONE, R.string.preference);
 		backItem.setIcon(R.drawable.ic_menu_back);
 		fwdItem.setIcon(R.drawable.ic_menu_forward);
 		instaItem.setIcon(android.R.drawable.ic_menu_save);
