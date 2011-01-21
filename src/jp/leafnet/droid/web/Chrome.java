@@ -69,6 +69,8 @@ public class Chrome extends Activity {
 		settings.setUseWideViewPort(true);
 		settings.setUserAgentString(this.createUserAgent());
 		settings.setJavaScriptEnabled(true);
+		settings.setSaveFormData(false);
+		settings.setSavePassword(false);
 		try {
 			Field nameField = settings.getClass().getDeclaredField("mBuiltInZoomControls");
 			nameField.setAccessible(true);
