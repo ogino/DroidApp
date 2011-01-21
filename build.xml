@@ -429,10 +429,13 @@
          your build.xml and it'll be called instead of this one. -->
 	<!-- <target name="-pre-compile"/> -->
 	<target name="-pre-compile">
-
 		<!-- To fix a bug in Android SDK Tools v8, we need to copy the external
 		             libraries to the binary output directory, so that the .jar is
 		             included by the DX compiler. -->
+		<!-- Add Tadashi Ogino:
+		         Followings are needed only ant on eclipse environment.
+		         If you wanna use command line ant build, no "-pre-compile" operation needed -->
+		<!--
 		<if condition="${proguard.enabled}">
 			<then>
 				<echo message="Not copying external .JAR files because ProGuard is enabled." />
@@ -444,6 +447,7 @@
 				</copy>
 			</else>
 		</if>
+		-->
 	</target>
 
 	<!-- Compiles this project's .java files into .class files. -->
