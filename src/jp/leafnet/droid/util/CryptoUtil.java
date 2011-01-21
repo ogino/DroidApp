@@ -14,8 +14,8 @@ import android.content.Context;
 
 public class CryptoUtil {
 
-	private final static String BLOWFISH_KEY = "BLOWFISH_KEY";
-	private final static String ALGORISM = "Blowfish";
+	private static final byte[] KEY_BYTES = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f};
+	private static final String ALGORISM = "AES/ECB/PKCS5Padding";
 	private final static String SECRET_KEY = "secret.key";
 	private static Logger logger = Logger.getLogger(CryptoUtil.class.getPackage().getName());
 
@@ -66,7 +66,7 @@ public class CryptoUtil {
 	private static SecretKeySpec generateKeySpec(final Context context) {
 		SecretKeySpec keySpec = null;
 		try {
-			keySpec = new SecretKeySpec(BLOWFISH_KEY.getBytes(), ALGORISM);
+			keySpec = new SecretKeySpec(KEY_BYTES, 0, 16, "AES");
 			FileOutputStream fileStream = context.openFileOutput(SECRET_KEY, Context.MODE_PRIVATE);
 			new FileOutputStream("secret.key", false);
 			ObjectOutputStream objectStrem =  new ObjectOutputStream(fileStream);
