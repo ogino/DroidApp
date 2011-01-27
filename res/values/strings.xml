@@ -10,6 +10,7 @@
     <string name="preference">Preference</string>
     <string name="instapaper">Register to Instapaper</string>
     <string name="twitter">Tweets to Twitter</string>
+    <string name="share">Share</string>
     <string name="about_title">About this application...</string>
     <string name="loading">Now Loading...</string>
     <string name="insta_category">Instapaper</string>

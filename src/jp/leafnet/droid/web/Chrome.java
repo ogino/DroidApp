@@ -124,19 +124,22 @@ public class Chrome extends Activity {
 	private final static int FWD_ID = 1;
 	private final static int INSTA_ID = 2;
 	private final static int TWEET_ID = 3;
-	private final static int PREP_ID = 4;
+	private final static int SHARE_ID = 4;
+	private final static int PREP_ID = 5;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuItem prepItem = menu.add(Menu.NONE, PREP_ID, Menu.NONE, R.string.preference);
 		MenuItem backItem = menu.add(Menu.NONE, BACK_ID, Menu.NONE, R.string.back);
 		MenuItem fwdItem = menu.add(Menu.NONE, FWD_ID, Menu.NONE, R.string.forward);
 		MenuItem instaItem = menu.add(Menu.NONE, INSTA_ID, Menu.NONE, R.string.instapaper);
 		MenuItem tweetItem = menu.add(Menu.NONE, TWEET_ID, Menu.NONE, R.string.twitter);
+		MenuItem shareItem = menu.add(Menu.NONE, SHARE_ID, Menu.NONE, R.string.share);
+		MenuItem prepItem = menu.add(Menu.NONE, PREP_ID, Menu.NONE, R.string.preference);
 		backItem.setIcon(R.drawable.ic_menu_back);
 		fwdItem.setIcon(R.drawable.ic_menu_forward);
 		instaItem.setIcon(android.R.drawable.ic_menu_save);
 		tweetItem.setIcon(android.R.drawable.ic_menu_send);
+		shareItem.setIcon(android.R.drawable.ic_menu_share);
 		prepItem.setIcon(android.R.drawable.ic_menu_preferences);
         return super.onCreateOptionsMenu(menu);
     }
@@ -154,7 +157,10 @@ public class Chrome extends Activity {
 			this.sendInstapaper();
 			break;
 		case TWEET_ID:
-			this.webView.loadUrl(createTweetUrl());
+			this.webView.loadUrl(this.createTweetUrl());
+			break;
+		case SHARE_ID:
+			this.sendShareApp();
 			break;
 		case PREP_ID:
 			this.showPreference();
@@ -201,6 +207,17 @@ public class Chrome extends Activity {
 		});
 		builder.setCancelable(true);
 		builder.create().show();
+	}
+
+	private static final String TWEET_FORMAT = "%s %s %s";
+
+	private void sendShareApp() {
+		String sendText = String.format(TWEET_FORMAT, this.webView.getTitle(), this.webView.getUrl(), HASH_TAG);
+		Intent intent = new Intent();
+		intent.setAction(Intent.ACTION_SEND);
+		intent.setType("text/plain");
+		intent.putExtra(Intent.EXTRA_TEXT, sendText);
+		this.startActivity(intent);
 	}
 
 	private void showPreference() {

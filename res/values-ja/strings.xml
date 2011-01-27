@@ -10,6 +10,7 @@
     <string name="preference">設定</string>
     <string name="instapaper">Instapaperに登録する</string>
     <string name="twitter">Twitterでつぶやく</string>
+    <string name="share">共有する</string>
     <string name="about_title">このアプリケーションについて</string>
     <string name="loading">読み込んでいます...</string>
     <string name="insta_category">Instapaper</string>
