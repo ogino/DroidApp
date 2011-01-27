@@ -36,7 +36,6 @@ public class ChromeViewClinent extends WebViewClient {
 		this.progress += MAX / 20;
 		ProgressBar progressBar = (ProgressBar)this.context.findViewById(R.id.WebViewProgress);
 		progressBar.setProgress(this.progress);
-		progressBar.setSecondaryProgress(this.progress + (MAX / 20));
 	}
 
 	public void onPageFinished(final WebView view, final String url) {
