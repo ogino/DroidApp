@@ -12,6 +12,7 @@ import jp.leafnet.droid.instapaper.Instapaper;
 import jp.leafnet.droid.news.HeadLine;
 import jp.leafnet.droid.news.conf.UserPrefActivity;
 import jp.leafnet.droid.twitter.Twitter;
+import jp.leafnet.droid.twitter.bitly.Bitly;
 import jp.leafnet.droid.web.view.ChromeViewClinent;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -212,7 +213,9 @@ public class Chrome extends Activity {
 	private static final String TWEET_FORMAT = "%s %s %s";
 
 	private void sendShareApp() {
-		String sendText = String.format(TWEET_FORMAT, this.webView.getTitle(), this.webView.getUrl(), HASH_TAG);
+		Bitly bitly = new Bitly();
+		String url = bitly.createUrl(this.webView.getUrl());
+		String sendText = String.format(TWEET_FORMAT, this.webView.getTitle(), url, HASH_TAG);
 		Intent intent = new Intent();
 		intent.setAction(Intent.ACTION_SEND);
 		intent.setType("text/plain");
