@@ -15,5 +15,20 @@
     android:password="true"
     />
 </PreferenceCategory>
+<PreferenceCategory android:title="@string/readit_category">
+<EditTextPreference
+    android:key="@string/readit_username"
+    android:title="@string/readit_user_title"
+    android:summary="@string/readit_user_summary"
+    android:dialogTitle="@string/readit_user_summary"
+    />
+<EditTextPreference
+    android:key="@string/readit_raw_password"
+    android:title="@string/readit_pass_title"
+    android:summary="@string/readit_pass_summary"
+    android:dialogTitle="@string/readit_pass_summary"
+    android:password="true"
+    />
+</PreferenceCategory>
 </PreferenceScreen>
 

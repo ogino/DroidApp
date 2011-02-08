@@ -9,6 +9,7 @@
     <string name="forward">進む</string>
     <string name="preference">設定</string>
     <string name="instapaper">Instapaperに登録する</string>
+    <string name="readitlater">Read It Laterに登録する</string>
     <string name="twitter">Twitterでつぶやく</string>
     <string name="share">共有する</string>
     <string name="about_title">このアプリケーションについて</string>
@@ -18,8 +19,13 @@
     <string name="insta_pass_title">Instapaperのパスワード</string>
     <string name="insta_user_summary">Instapaperのユーザ名を入力して下さい</string>
     <string name="insta_pass_summary">Instapaperのパスワードを入力して下さい</string>
+    <string name="readit_category">Read It Later</string>
+    <string name="readit_user_title">Read It Laterのユーザ名</string>
+    <string name="readit_pass_title">Read It Laterのパスワード</string>
+    <string name="readit_user_summary">Read It Laterのユーザ名を入力して下さい</string>
+    <string name="readit_pass_summary">Read It Laterのパスワードを入力して下さい</string>
     <string name="error_title">エラー</string>
-    <string name="insta_err_message">登録に失敗しました。\nステータスコードは %d。</string>
+    <string name="regist_err_message">登録に失敗しました。\nステータスコードは %d。</string>
     <string name="success_title">成功</string>
-    <string name="insta_suc_message">登録に成功しました。\nステータスコードは %d。</string>
+    <string name="regist_suc_message">登録に成功しました。\nステータスコードは %d。</string>
 </resources>

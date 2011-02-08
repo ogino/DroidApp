@@ -9,6 +9,7 @@
     <string name="forward">Allez de l\'avant</string>
     <string name="preference">Préférence</string>
     <string name="instapaper">Registrez à Instapaper</string>
+    <string name="readitlater">Registrez à Read It Later</string>
     <string name="twitter">Gazouillez au Twitter</string>
     <string name="share">Partagez</string>
     <string name="about_title">Au sujet de cette application...</string>
@@ -18,8 +19,13 @@
     <string name="insta_pass_title">Passe d\'Instapaper</string>
     <string name="insta_user_summary">Entrez Utilisateur final d\'Instapaper</string>
     <string name="insta_pass_summary">Entrez Passe d\'Instapaper</string>
+    <string name="readit_category">Read It Later</string>
+    <string name="readit_user_title">Utilisateur final de Read It Later</string>
+    <string name="readit_pass_title">Passe de Read It Later</string>
+    <string name="readit_user_summary">Entrez Utilisateur final de Read It Later</string>
+    <string name="readit_pass_summary">Entrez Passe de Read It Later</string>
     <string name="error_title">Erreur</string>
-    <string name="insta_err_message">Votre demande est rejetée.\nLe code statut est %d.</string>
+    <string name="regist_err_message">Votre demande est rejetée.\nLe code statut est %d.</string>
     <string name="success_title">Succès</string>
-    <string name="insta_suc_message">Votre demande est acceptée.\nLe code statut est %d.</string>
+    <string name="regist_suc_message">Votre demande est acceptée.\nLe code statut est %d.</string>
 </resources>
