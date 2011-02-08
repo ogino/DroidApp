@@ -33,6 +33,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -146,9 +147,12 @@ public class HeadLine extends Activity implements OnClickListener {
 	}
 
 	private final Integer ROWID_BEGIN = 9999;
+	private final Integer ZERO_POINT = 0;
 
 	@SuppressWarnings("unchecked")
 	private void createTable(final List<Item> itemList) {
+		ScrollView scrollView = (ScrollView)findViewById(R.id.HeadLineScroll);
+		scrollView.scrollTo(ZERO_POINT, ZERO_POINT);
 		TableLayout layout = (TableLayout)findViewById(R.id.HeadLineTable);
 		layout.removeAllViews();
 		Integer id = ROWID_BEGIN + 1;
