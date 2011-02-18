@@ -16,18 +16,26 @@ public class Channel {
 	}
 
 	public List<Item> getItems() {
-		return itemList;
+		synchronized (this.itemList) {
+			return itemList;
+		}
 	}
 	
 	public void addItem(Item item) {
-		this.itemList.add(item);
+		synchronized (this.itemList) {
+			this.itemList.add(item);
+		}
 	}
 
 	public Object getInside(String key) {
-		return this.elementMap.get(key);
+		synchronized (this.elementMap) {
+			return this.elementMap.get(key);
+		}
 	}
 
 	public void addElement(String key, Object value) {
-		this.elementMap.put(key, value);
+		synchronized (this.elementMap) {
+			this.elementMap.put(key, value);
+		}
 	}
 }

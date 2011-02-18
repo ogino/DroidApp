@@ -11,10 +11,14 @@ public class Item {
 	}
 	
 	public Object getInside(String key) {
-		return this.elementMap.get(key);
+		synchronized (this.elementMap) {
+			return this.elementMap.get(key);
+		}
 	}
 
 	public void addElement(String key, Object value) {
-		this.elementMap.put(key, value);
+		synchronized (this.elementMap) {
+			this.elementMap.put(key, value);
+		}
 	}
 }

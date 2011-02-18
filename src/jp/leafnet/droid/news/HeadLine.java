@@ -132,15 +132,22 @@ public class HeadLine extends Activity implements OnClickListener {
 	}
 
 	private final Handler handler = new Handler() {
-		@SuppressWarnings("unchecked")
 		public void handleMessage(Message msg) {
 			synchronized (channel) {
-				createTitle(((Map<String, Object>)channel.getInside("title")).get("text").toString());
+				createTitle(createTitleText());
 				createTable(channel.getItems());
 			}
 		}
 	};
-	
+
+	@SuppressWarnings("unchecked")
+	private String createTitleText() {
+		Map<String, Object> titleMap = ((Map<String, Object>)this.channel.getInside("title"));
+		String title = "";
+		if (titleMap != null && !titleMap.isEmpty()) title = titleMap.get("text").toString();
+		return title;
+	}
+
 	private void createTitle(String title) {
 		TextView textView = (TextView)findViewById(R.id.RSSTitle);
 		textView.setText(title);
@@ -149,7 +156,6 @@ public class HeadLine extends Activity implements OnClickListener {
 	private final Integer ROWID_BEGIN = 9999;
 	private final Integer ZERO_POINT = 0;
 
-	@SuppressWarnings("unchecked")
 	private void createTable(final List<Item> itemList) {
 		ScrollView scrollView = (ScrollView)findViewById(R.id.HeadLineScroll);
 		scrollView.scrollTo(ZERO_POINT, ZERO_POINT);
@@ -158,8 +164,16 @@ public class HeadLine extends Activity implements OnClickListener {
 		Integer id = ROWID_BEGIN + 1;
 		for (Item item : itemList) {
 			layout.addView(createTableRow(item, id++));
-			this.linkUrlList.add(((Map<String, Object>)item.getInside("link")).get("text").toString());
+			this.linkUrlList.add(this.createLinkUrl(item));
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private String createLinkUrl(Item item) {
+		Map<String, Object> urlMap = ((Map<String, Object>)item.getInside("link"));
+		String linkUrl = "";
+		if (urlMap != null && !urlMap.isEmpty()) linkUrl = urlMap.get("text").toString();
+		return linkUrl;
 	}
 
 	private TableRow createTableRow(final Item item, final Integer id) {
@@ -187,22 +201,36 @@ public class HeadLine extends Activity implements OnClickListener {
 		return rowLayout;
 	}
 
-	@SuppressWarnings("unchecked")
 	private TextView createDescriptView(Item item) {
 		TextView descriptView = new TextView(this);
 		descriptView.setBackgroundColor(Color.WHITE);
 		descriptView.setTextSize(10);
-		descriptView.setText(((Map<String, Object>)item.getInside("description")).get("text").toString());
+		descriptView.setText(this.createDescription(item));
 		return descriptView;
 	}
 
 	@SuppressWarnings("unchecked")
+	private CharSequence createDescription(Item item) {
+		Map<String, Object> descriptMap = ((Map<String, Object>)item.getInside("description"));
+		String description = "";
+		if (descriptMap != null && !descriptMap.isEmpty()) description = descriptMap.get("text").toString();
+		return description;
+	}
+
 	private TextView createTitleView(Item item) {
 		TextView titleView = new TextView(this);
 		titleView.setBackgroundColor(Color.WHITE);
 		titleView.setTypeface(Typeface.DEFAULT_BOLD);
-		titleView.setText(((Map<String, Object>)item.getInside("title")).get("text").toString());
+		titleView.setText(this.createTitleText(item));
 		return titleView;
+	}
+
+	@SuppressWarnings("unchecked")
+	private CharSequence createTitleText(Item item) {
+		Map<String, Object> titleMap = ((Map<String, Object>)item.getInside("title"));
+		String title = "";
+		if (titleMap != null && !titleMap.isEmpty()) title = titleMap.get("text").toString();
+		return title;
 	}
 
 	@Override
